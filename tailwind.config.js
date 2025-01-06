@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        nav: "#0A3C30",
+        nav: "#0a3c30",
         // nav: "",
       },
     },

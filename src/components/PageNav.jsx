@@ -5,10 +5,10 @@ import { mdiLogin, mdiAccountPlus } from "@mdi/js";
 const PageNav = () => {
   return (
     <header>
-      <nav className="fixed top-0 left-0 right-0 z-50 flex w-full items-center justify-between py-2 lg:flex-wrap lg:justify-start lg:py-4 bg-nav shadow-lg">
+      <nav className="fixed top-0 left-1/6 right-0 z-50 flex w-[100%] md:w-[84%] items-center justify-between py-2 lg:flex-wrap lg:justify-start lg:py-4 bg-nav shadow-lg">
         <div className="flex w-full flex-wrap items-center justify-between px-3">
           <div className="ms-2">
-            <a className="text-4xl text-white " href="#">
+            <a className="text-4xl text-white" href="#">
               DirtMan
             </a>
           </div>

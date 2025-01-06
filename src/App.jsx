@@ -18,7 +18,7 @@ const App = () => {
     <BrowserRouter>
       <PageNav />
       <Routes>
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/schedulepickup" element={<PickupSchedule />} />
         <Route path="/dishboard" element={<DashBoard />} />
