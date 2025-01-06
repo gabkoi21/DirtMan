@@ -43,7 +43,7 @@ const UserNav = () => {
               data-twe-navbar-nav-ref
             >
               <li
-                className="mb-4 ps-2 lg:mb-8 lg:mt-5 lg:pe-1 lg:ps-0"
+                className="mb-4 ps-2  lg:mt-5 lg:pe-1 lg:ps-0"
                 data-twe-nav-item-ref
               >
                 <NavLink
@@ -55,7 +55,7 @@ const UserNav = () => {
                 </NavLink>
               </li>
               <li
-                className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0"
+                className="mb-4 ps-2 lg:mb-8 lg:mt-5 lg:pe-1 lg:ps-0"
                 data-twe-nav-item-ref
               >
                 <NavLink
