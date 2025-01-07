@@ -1,0 +1,36 @@
+// import { BrowserRouter, Route, Routes } from "react-router-dom";
+// import PageNav from "./components/PageNav";
+
+// // Pages
+// import Home from "./UserBoard/Home";
+// import Profile from "./UserBoard/Profile";
+// import PickupSchedule from "./UserBoard/SchedulePickup";
+// import DashBoard from "./UserBoard/DashBoard";
+// import Logout from "./UserBoard/Logout";
+// import Notification from "./UserBoard/Notification";
+// import MyRequest from "./UserBoard/MyRequest";
+
+// // Authentication pages
+// import Login from "./UserBoard/Login";
+// import Register from "./UserBoard/Profile";
+
+// const App = () => {
+//   return (
+//     <BrowserRouter>
+//       <PageNav />
+//       <Routes>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/profile" element={<Profile />} />
+//         <Route path="/schedulepickup" element={<PickupSchedule />} />
+//         <Route path="/dishboard" element={<DashBoard />} />
+//         <Route path="/login" element={<Login />} />
+//         <Route path="/register" element={<Register />} />
+//         <Route path="#" element={<Logout />} />
+//         <Route path="/notification" element={<Notification />} />
+//         <Route path="/requests" element={<MyRequest />} />
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// };
+
+// export default App;
