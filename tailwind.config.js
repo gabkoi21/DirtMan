@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        roboto: ["Roboto", "sans-serif"], // Add Roboto font
+      },
       colors: {
         nav: "#0a3c30",
         // nav: "",
