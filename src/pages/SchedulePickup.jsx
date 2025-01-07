@@ -37,7 +37,7 @@ const WastePickupForm = () => {
           id="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-none sm:text-sm"
+          className="mt-1 block w-full px-3 py-2 border  rounded-md shadow-sm focus:outline-none focus:border-none sm:text-sm"
           required
         />
       </div>
@@ -54,7 +54,7 @@ const WastePickupForm = () => {
           id="location"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-none sm:text-sm"
+          className="p-2 mt-1 border w-full  rounded-md focus:ring-0 focus:ring-none focus:outline-none sm:text-sm"
           required
         />
       </div>
@@ -68,7 +68,7 @@ const WastePickupForm = () => {
         </label>
         <select
           id="wasteType"
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-none sm:text-sm"
+          className="p-2 mt-1 border w-full  rounded-md focus:ring-0 focus:ring-none focus:outline-none sm:text-sm"
           required
         >
           <option value="organic">Organic</option>
@@ -89,7 +89,7 @@ const WastePickupForm = () => {
           onChange={(date) => setSelectedDate(date)}
           showTimeSelect
           dateFormat="Pp"
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-none sm:text-sm"
+          className="p-2 mt-1 border w-full  rounded-md focus:ring-0 focus:ring-none focus:outline-none sm:text-sm"
           required
         />
       </div>

@@ -8,6 +8,8 @@ import {
   mdiClockOutline,
   mdiAccountCircle,
   mdiFileDocument,
+  mdiEyeOutline,
+  mdiThemeLightDark,
 } from "@mdi/js"; // Import necessary icons
 
 const UserNav = () => {
@@ -73,23 +75,22 @@ const UserNav = () => {
               >
                 <NavLink
                   className="flex items-center p-0 text-black lg:px-2"
-                  to="/notification"
+                  to="/requests"
                 >
-                  <Icon path={mdiBell} size={1} className="mr-2" />
-                  Notification
+                  <Icon path={mdiFileDocument} size={1} className="mr-2" />
+                  My Requests
                 </NavLink>
               </li>
-
               <li
                 className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0"
                 data-twe-nav-item-ref
               >
                 <NavLink
                   className="flex items-center p-0 text-black lg:px-2"
-                  to="/requests"
+                  to="/notification"
                 >
-                  <Icon path={mdiFileDocument} size={1} className="mr-2" />
-                  My Requests
+                  <Icon path={mdiBell} size={1} className="mr-2" />
+                  Notification
                 </NavLink>
               </li>
               <li
@@ -114,6 +115,13 @@ const UserNav = () => {
                 </NavLink>
               </li>
             </ul>
+          </div>
+          <div className="flex items-center mt-5">
+            <button className="flex items-center p-2 text-black  rounded-lg transition-colors">
+              <Icon path={mdiEyeOutline} size={1} />
+              <span className="ml-1"> Dark Mode</span>
+            </button>
+            {/* <Icon path={mdiThemeLightDark} size={1} /> */}
           </div>
         </div>
       </nav>
