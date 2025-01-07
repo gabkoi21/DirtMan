@@ -8,6 +8,7 @@ import PickupSchedule from "./pages/SchedulePickup";
 import DashBoard from "./pages/DashBoard";
 import Logout from "./pages/Logout";
 import Notification from "./pages/Notification";
+import MyRequest from "./pages/MyRequest";
 
 // Authentication pages
 import Login from "./pages/Login";
@@ -24,8 +25,9 @@ const App = () => {
         <Route path="/dishboard" element={<DashBoard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/logout" element={<Logout />} />
+        <Route path="#" element={<Logout />} />
         <Route path="/notification" element={<Notification />} />
+        <Route path="/requests" element={<MyRequest />} />
       </Routes>
     </BrowserRouter>
   );

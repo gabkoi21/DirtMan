@@ -7,6 +7,7 @@ import {
   mdiFaceManProfile,
   mdiClockOutline,
   mdiAccountCircle,
+  mdiFileDocument,
 } from "@mdi/js"; // Import necessary icons
 
 const UserNav = () => {
@@ -42,7 +43,7 @@ const UserNav = () => {
               className="list-style-none me-auto flex flex-col ps-0 lg:mt-1"
               data-twe-navbar-nav-ref
             >
-              <li
+              {/* <li
                 className="mb-4 ps-2  lg:mt-5 lg:pe-1 lg:ps-0"
                 data-twe-nav-item-ref
               >
@@ -53,7 +54,7 @@ const UserNav = () => {
                   <Icon path={mdiViewDashboard} size={1} className="mr-2" />
                   DashBoard
                 </NavLink>
-              </li>
+              </li> */}
               <li
                 className="mb-4 ps-2 lg:mb-8 lg:mt-5 lg:pe-1 lg:ps-0"
                 data-twe-nav-item-ref
@@ -78,6 +79,19 @@ const UserNav = () => {
                   Notification
                 </NavLink>
               </li>
+
+              <li
+                className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0"
+                data-twe-nav-item-ref
+              >
+                <NavLink
+                  className="flex items-center p-0 text-black lg:px-2"
+                  to="/requests"
+                >
+                  <Icon path={mdiFileDocument} size={1} className="mr-2" />
+                  My Requests
+                </NavLink>
+              </li>
               <li
                 className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0"
                 data-twe-nav-item-ref
@@ -94,10 +108,7 @@ const UserNav = () => {
                 className="mb-4 ps-2 lg:mb-0 lg:pe-1 lg:ps-0"
                 data-twe-nav-item-ref
               >
-                <NavLink
-                  className="flex items-center p-0 text-black lg:px-2"
-                  to="/logout"
-                >
+                <NavLink className="flex items-center p-0 text-black lg:px-2">
                   <Icon path={mdiExitToApp} size={1} className="mr-2" />
                   Logout
                 </NavLink>
