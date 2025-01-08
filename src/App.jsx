@@ -4,7 +4,7 @@ import RootNavForAdmin from "./AuthRoots/RootNavForAdmin";
 import RootNavForUser from "./AuthRoots/RootNavForUser";
 
 const App = () => {
-  const isAdmin = true;
+  const isAdmin = true; // Replace with dynamic logic for determining admin or user.
 
   return (
     <BrowserRouter>

@@ -1,8 +1,8 @@
 import UserNav from "../components/UserNav";
 import Icon from "@mdi/react";
-import { mdiFileDocument, mdiDotsHorizontal } from "@mdi/js";
-// import { requests } from "../data/RequestData";
+import { mdiFileDocument, mdiDotsHorizontal, mdiDelete } from "@mdi/js";
 import { Allrequests } from "../data/RequestData";
+
 // Main Container Component
 const AllRequestContainer = () => {
   return (
@@ -20,26 +20,26 @@ const AllRequestContainer = () => {
 const RequestHeader = () => {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-gray-700 capitalize bg-gray-50">
+      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead className="text-gray-700 capitalize bg-gray-50 dark:bg-gray-800">
           <tr>
-            <th colSpan="5" className="p-3">
-              <div className="flex flex-row justify-between">
-                <div className="flex flex-row gap-2">
+            <th colSpan="7" className="p-3">
+              <div className="flex justify-between">
+                <div className="flex gap-2 items-center">
                   <Icon
                     path={mdiFileDocument}
                     size={1}
                     className="text-black"
                   />
                   <p className="text-xl font-bold text-black">
-                    List of Previous Requests
+                    List of Requests
                   </p>
                 </div>
                 <div className="bg-white rounded-full p-1">
                   <Icon
                     path={mdiDotsHorizontal}
                     size={1}
-                    className=" text-black"
+                    className="text-black"
                   />
                 </div>
               </div>
@@ -48,6 +48,7 @@ const RequestHeader = () => {
         </thead>
         <Request />
         <RequestTableHeaders />
+        <RequestFetch />
       </table>
     </div>
   );
@@ -55,8 +56,8 @@ const RequestHeader = () => {
 
 const Request = () => {
   return (
-    <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-white even:dark:bg-gray-800 border-b dark:border-gray-700">
-      <td colSpan="5" className="px-6 py-4">
+    <tr className="odd:bg-white even:bg-gray-50 border-b dark:border-gray-700 dark:bg-gray-900">
+      <td colSpan="7" className="px-6 py-4">
         <p className="text-base text-black">118 Requests</p>
       </td>
     </tr>
@@ -65,57 +66,55 @@ const Request = () => {
 
 const RequestTableHeaders = () => {
   return (
-    <div className="relative overflow-x-auto">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" className="px-6 py-3">
-              Name
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Email
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Address
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Waste Type
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Time
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Status
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <RequestFetch />
-        </tbody>
-      </table>
-    </div>
+    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-800 dark:text-gray-400">
+      <tr>
+        <th scope="col" className="px-10 py-3">
+          Name
+        </th>
+        <th scope="col" className="px-10 py-3">
+          Email
+        </th>
+        <th scope="col" className="px-10 py-3">
+          Address
+        </th>
+        <th scope="col" className="px-4 py-3 whitespace-nowrap">
+          Waste Type
+        </th>
+        <th scope="col" className="px-8 py-3">
+          Time
+        </th>
+        <th scope="col" className="px-4 py-3">
+          Status
+        </th>
+        <th scope="col" className="px-4 py-3">
+          Actions
+        </th>
+      </tr>
+    </thead>
   );
 };
 
 const RequestFetch = () => {
   const wasteRequestData = Allrequests;
   return (
-    <>
+    <tbody>
       {wasteRequestData.map((request) => (
         <RequestTable key={request.id} requestObj={request} />
       ))}
-    </>
+    </tbody>
   );
 };
 
 // Request Table Row Component
 const RequestTable = (props) => {
-  // eslint-disable-next-line react/prop-types
   const { name, address, wasteType, time, status, email } = props.requestObj;
 
   return (
-    <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-      <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+    <tr className="odd:bg-white even:bg-gray-50 border-b dark:border-gray-700 dark:bg-gray-900">
+      <th
+        scope="row"
+        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+      >
         {name}
       </th>
       <td className="px-6 py-4">{email}</td>
@@ -123,6 +122,11 @@ const RequestTable = (props) => {
       <td className="px-6 py-4">{wasteType}</td>
       <td className="px-6 py-4">{time}</td>
       <td className="px-6 py-4">{status}</td>
+      <td className="px-6 py-4">
+        <button className="flex items-center justify-center text-red-700 ml-3">
+          <Icon path={mdiDelete} size={1} />
+        </button>
+      </td>
     </tr>
   );
 };

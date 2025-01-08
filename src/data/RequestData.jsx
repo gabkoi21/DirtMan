@@ -35,6 +35,7 @@ export const requests = [
 
 export const Allrequests = [
   {
+    id: 1,
     name: "John Doe",
     email: "john.doe@example.com",
     address: "123 Main St, City, Country",
@@ -44,6 +45,7 @@ export const Allrequests = [
     iconClass: "text-red-700",
   },
   {
+    id: 2,
     name: "Emily Clark",
     email: "emily.clark@example.com",
     address: "456 Oak Rd, City, Country",
@@ -53,6 +55,7 @@ export const Allrequests = [
     iconClass: "text-red-700",
   },
   {
+    id: 3,
     name: "Michael Brown",
     email: "michael.brown@example.com",
     address: "789 Pine Ave, City, Country",
@@ -62,6 +65,7 @@ export const Allrequests = [
     iconClass: "text-red-700",
   },
   {
+    id: 4,
     name: "Sophia Taylor",
     email: "sophia.taylor@example.com",
     address: "101 Maple Dr, City, Country",
