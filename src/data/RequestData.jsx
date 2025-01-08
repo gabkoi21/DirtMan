@@ -5,6 +5,7 @@ export const requests = [
     wasteType: "Plastic",
     time: "08:00 AM",
     status: "Pending",
+    iconClass: "text-red-700",
   },
   {
     name: "Jane Smith",
@@ -12,6 +13,7 @@ export const requests = [
     wasteType: "Glass",
     time: "09:00 AM",
     status: "Completed",
+    iconClass: "text-red-700",
   },
   {
     name: "Jane Smith",
@@ -19,6 +21,7 @@ export const requests = [
     wasteType: "Metal",
     time: "10:00 AM",
     status: "Pending",
+    iconClass: "text-red-700",
   },
   {
     name: "Jane Smith ",
@@ -26,5 +29,45 @@ export const requests = [
     wasteType: "Paper",
     time: "02:00  Pm",
     status: "In Progress",
+    iconClass: "text-red-700",
+  },
+];
+
+export const Allrequests = [
+  {
+    name: "John Doe",
+    email: "john.doe@example.com",
+    address: "123 Main St, City, Country",
+    wasteType: "Plastic",
+    time: "08:00 AM",
+    status: "Pending",
+    iconClass: "text-red-700",
+  },
+  {
+    name: "Emily Clark",
+    email: "emily.clark@example.com",
+    address: "456 Oak Rd, City, Country",
+    wasteType: "Glass",
+    time: "09:00 AM",
+    status: "Completed",
+    iconClass: "text-red-700",
+  },
+  {
+    name: "Michael Brown",
+    email: "michael.brown@example.com",
+    address: "789 Pine Ave, City, Country",
+    wasteType: "Metal",
+    time: "10:00 AM",
+    status: "Pending",
+    iconClass: "text-red-700",
+  },
+  {
+    name: "Sophia Taylor",
+    email: "sophia.taylor@example.com",
+    address: "101 Maple Dr, City, Country",
+    wasteType: "Paper",
+    time: "02:00 PM",
+    status: "In Progress",
+    iconClass: "text-red-700",
   },
 ];
