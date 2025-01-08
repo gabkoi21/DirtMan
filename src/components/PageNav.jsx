@@ -1,7 +1,3 @@
-import { NavLink } from "react-router-dom";
-// import Icon from "@mdi/react";
-// import { mdiLogin, mdiAccountPlus } from "@mdi/js";
-
 const PageNav = () => {
   return (
     <header>
@@ -12,14 +8,6 @@ const PageNav = () => {
               DirtMan
             </a>
           </div>
-          {/* <div className="flex items-center ml-auto">
-            <NavLink className="p-0 text-white lg:px-1" to="/login">
-              <Icon path={mdiLogin} title="Login" size={1} />
-            </NavLink>
-            <NavLink className="p-0 text-white lg:px-2" to="/register">
-              <Icon path={mdiAccountPlus} title="Register" size={1} />
-            </NavLink>
-          </div> */}
         </div>
       </nav>
     </header>

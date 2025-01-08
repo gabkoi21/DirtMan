@@ -1,25 +1,27 @@
-import { Routes, Route } from "react-router-dom";
-import Home from "../UserBoard/Home";
-import Profile from "../UserBoard/Profile";
-import PickupSchedule from "../UserBoard/SchedulePickup";
-import DashBoard from "../UserBoard/DashBoard";
-import Logout from "../UserBoard/Logout";
+import { Routes, Route, Navigate } from "react-router-dom";
+
+import SchedulePickup from "../UserBoard/SchedulePickup";
+import Requests from "../UserBoard/MyRequest";
 import Notification from "../UserBoard/Notification";
-import MyRequest from "../UserBoard/MyRequest";
-import Login from "../UserBoard/Login";
+import Profile from "../UserBoard/Profile";
+import UserNav from "../components/UserNav";
 
 const RootNavForUser = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/schedulepickup" element={<PickupSchedule />} />
-      <Route path="/dashboard" element={<DashBoard />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/logout" element={<Logout />} />
-      <Route path="/notification" element={<Notification />} />
-      <Route path="/requests" element={<MyRequest />} />
-    </Routes>
+    <div>
+      <UserNav />
+      <div className="lg:ml-[16%] p-4">
+        {" "}
+        {/* Add margin to account for fixed sidebar */}
+        <Routes>
+          <Route path="/" element={<Navigate to="schedulepickup" />} />
+          <Route path="schedulepickup" element={<SchedulePickup />} />
+          <Route path="requests" element={<Requests />} />
+          <Route path="notification" element={<Notification />} />
+          <Route path="profile" element={<Profile />} />
+        </Routes>
+      </div>
+    </div>
   );
 };
 

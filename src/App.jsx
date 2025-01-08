@@ -1,21 +1,39 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import PageNav from "./components/PageNav";
 import RootNavForAdmin from "./AuthRoots/RootNavForAdmin";
 import RootNavForUser from "./AuthRoots/RootNavForUser";
 
-const isAdmin = true; // Replace with actual authentication logic
-
 const App = () => {
+  const isAdmin = false; // Replace with dynamic logic for determining admin or user.
+
   return (
     <BrowserRouter>
+      {/* PageNav will always be displayed */}
       <PageNav />
+
+      {/* Define routes */}
       <Routes>
-        {/* Conditionally render admin or user routes */}
-        {isAdmin ? (
-          <Route path="/*" element={<RootNavForAdmin />} />
-        ) : (
-          <Route path="/*" element={<RootNavForUser />} />
-        )}
+        {/* Admin Routes */}
+        <Route
+          path="/admin/*"
+          element={
+            isAdmin ? <RootNavForAdmin /> : <Navigate to="/user" replace />
+          }
+        />
+
+        {/* User Routes */}
+        <Route
+          path="/user/*"
+          element={
+            !isAdmin ? <RootNavForUser /> : <Navigate to="/admin" replace />
+          }
+        />
+
+        {/* Fallback Route */}
+        <Route
+          path="*"
+          element={<Navigate to={isAdmin ? "/admin" : "/user"} replace />}
+        />
       </Routes>
     </BrowserRouter>
   );
