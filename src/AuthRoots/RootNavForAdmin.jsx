@@ -9,9 +9,7 @@ const RootNavForAdmin = () => {
   return (
     <div>
       <AdminNav />
-      <div className="lg:ml-[16%] p-4">
-        {" "}
-        {/* Add margin to account for fixed sidebar */}
+      <div>
         <Routes>
           <Route path="/" element={<Navigate to="dashboard" />} />
           <Route path="dashboard" element={<AdminDashBoard />} />

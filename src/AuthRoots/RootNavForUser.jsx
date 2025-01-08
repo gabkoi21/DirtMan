@@ -10,9 +10,7 @@ const RootNavForUser = () => {
   return (
     <div>
       <UserNav />
-      <div className="lg:ml-[16%] p-4">
-        {" "}
-        {/* Add margin to account for fixed sidebar */}
+      <div>
         <Routes>
           <Route path="/" element={<Navigate to="schedulepickup" />} />
           <Route path="schedulepickup" element={<SchedulePickup />} />
