@@ -107,6 +107,7 @@ const RequestFetch = () => {
 
 // Request Table Row Component
 const RequestTable = (props) => {
+  // eslint-disable-next-line react/prop-types
   const { name, address, wasteType, time, status, email } = props.requestObj;
 
   return (

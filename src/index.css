@@ -13,6 +13,10 @@
     @apply bg-nav; /* Ensure 'nav' is defined in tailwind.config.js */
   }
 
+  .nav-color {
+    @apply text-nav; /* Ensure 'nav' is defined in tailwind.config.js */
+  }
+
   .nav-link-light {
     @apply text-white;
   }

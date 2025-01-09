@@ -1,20 +1,6 @@
-import UserNav from "../components/UserNav";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-const PickupContainer = () => {
-  return (
-    <div className="min-h-screen flex">
-      <aside className="w-1/6 p-4">
-        <UserNav />
-      </aside>
-      <main className="w-3/4 p-8 mt-12">
-        <WastePickupForm />
-      </main>
-    </div>
-  );
-};
 
 const WastePickupForm = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -104,4 +90,4 @@ const WastePickupForm = () => {
   );
 };
 
-export default PickupContainer;
+export default WastePickupForm;

@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import SchedulePickup from "../UserBoard/SchedulePickup";
+import SchedulePickup from "../components/PickupForm";
 import Requests from "../UserBoard/MyRequest";
 import Notification from "../UserBoard/Notification";
 import Profile from "../UserBoard/Profile";

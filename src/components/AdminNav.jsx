@@ -18,7 +18,7 @@ const AdminNav = () => {
                 <NavLink
                   className={({ isActive }) =>
                     `flex items-center p-0 ${
-                      isActive ? "text-blue-600" : "text-black"
+                      isActive ? "text-green-950" : "text-black"
                     } lg:px-2`
                   }
                   to="/admin/dashboard"
@@ -33,7 +33,7 @@ const AdminNav = () => {
                 <NavLink
                   className={({ isActive }) =>
                     `flex items-center p-0 ${
-                      isActive ? "text-blue-600" : "text-black"
+                      isActive ? "text-green-950" : "text-black"
                     } lg:px-2`
                   }
                   to="/admin/allrequests"
@@ -48,7 +48,7 @@ const AdminNav = () => {
                 <NavLink
                   className={({ isActive }) =>
                     `flex items-center p-0 ${
-                      isActive ? "text-blue-600" : "text-black"
+                      isActive ? "text-green-950" : "text-black"
                     } lg:px-2`
                   }
                   to="/admin/sendnotification"

@@ -1,6 +1,6 @@
 import UserNav from "../components/UserNav";
 import Icon from "@mdi/react";
-import { mdiDelete } from "@mdi/js";
+import { mdiDotsVertical } from "@mdi/js";
 import { NotificationAlert } from "../components/NotifcationAlert";
 
 import { notifations } from "../data/NotificationData";
@@ -86,7 +86,7 @@ const NotificationTableRow = (props) => {
       </td>
       <td className="text-sm text-black">{timestamp}</td>
       <td className={icon && iconClass}>
-        {icon && <Icon path={mdiDelete} size={1} />}
+        {icon && <Icon path={mdiDotsVertical} size={1} />}
       </td>
     </tr>
   );

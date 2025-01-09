@@ -8,6 +8,8 @@ import {
   mdiAccountCircle,
   mdiFileDocument,
   mdiEyeOutline,
+  mdiCalendarClock,
+  mdiTruck,
 } from "@mdi/js";
 
 const UserNav = () => {
@@ -31,37 +33,24 @@ const UserNav = () => {
         <div className="block w-full px-3">
           <div className="!visible mt-2 hidden flex-grow basis-[100%] lg:mt-0 lg:!block lg:basis-auto">
             <ul className="list-style-none me-auto flex flex-col ps-0 lg:mt-1">
-              <li className="mb-4 ps-2 lg:mb-8 lg:mt-5 lg:pe-1 lg:ps-0">
+              <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0 mt-10">
                 <NavLink
                   className={({ isActive }) =>
                     `flex items-center p-0 ${
-                      isActive ? "text-blue-600" : "text-black"
-                    } lg:px-2`
-                  }
-                  to="/user/schedulepickup"
-                >
-                  <Icon path={mdiClockOutline} size={1} className="mr-2" />
-                  Schedule Pickup
-                </NavLink>
-              </li>
-              <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0">
-                <NavLink
-                  className={({ isActive }) =>
-                    `flex items-center p-0 ${
-                      isActive ? "text-blue-600" : "text-black"
+                      isActive ? "text-green-950" : "text-black"
                     } lg:px-2`
                   }
                   to="/user/requests"
                 >
-                  <Icon path={mdiFileDocument} size={1} className="mr-2" />
-                  My Requests
+                  <Icon path={mdiCalendarClock} size={1} className="mr-2" />
+                  PickUp
                 </NavLink>
               </li>
               <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0">
                 <NavLink
                   className={({ isActive }) =>
                     `flex items-center p-0 ${
-                      isActive ? "text-blue-600" : "text-black"
+                      isActive ? "text-green-950" : "text-black"
                     } lg:px-2`
                   }
                   to="/user/notification"
@@ -74,7 +63,7 @@ const UserNav = () => {
                 <NavLink
                   className={({ isActive }) =>
                     `flex items-center p-0 ${
-                      isActive ? "text-blue-600" : "text-black"
+                      isActive ? "text-green-950" : "text-black"
                     } lg:px-2`
                   }
                   to="/user/profile"
@@ -91,12 +80,12 @@ const UserNav = () => {
               </li>
             </ul>
           </div>
-          <div className="flex items-center mt-5">
+          {/* <div className="flex items-center mt-5">
             <button className="flex items-center p-2 text-black rounded-lg transition-colors">
               <Icon path={mdiEyeOutline} size={1} />
               <span className="ml-1"> Dark Mode</span>
             </button>
-          </div>
+          </div> */}
         </div>
       </nav>
     </header>
