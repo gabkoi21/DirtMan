@@ -1,6 +1,5 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
-import SchedulePickup from "../components/PickupForm";
 import Requests from "../UserBoard/MyRequest";
 import Notification from "../UserBoard/Notification";
 import Profile from "../UserBoard/Profile";
@@ -12,8 +11,6 @@ const RootNavForUser = () => {
       <UserNav />
       <div>
         <Routes>
-          <Route path="/" element={<Navigate to="schedulepickup" />} />
-          <Route path="schedulepickup" element={<SchedulePickup />} />
           <Route path="requests" element={<Requests />} />
           <Route path="notification" element={<Notification />} />
           <Route path="profile" element={<Profile />} />
