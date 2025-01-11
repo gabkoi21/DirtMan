@@ -4,13 +4,14 @@ import RootNavForAdmin from "./AuthRoots/RootNavForAdmin";
 import RootNavForUser from "./AuthRoots/RootNavForUser";
 
 const App = () => {
-  const isAdmin = false;
+  const isAdmin = false; // Replace with dynamic logic for determining admin or user.
 
   return (
     <BrowserRouter>
       {/* PageNav will always be displayed */}
       <PageNav />
 
+      {/* Define routes */}
       <Routes>
         {/* Admin Routes */}
         <Route

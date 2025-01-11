@@ -1,5 +1,4 @@
 import UserNav from "../components/UserNav";
-import React, { useState } from "react";
 
 const SendNotification = () => {
   return (
@@ -53,14 +52,14 @@ const NotificationSender = () => {
           />
           <div className="text-gray-500 text-sm mt-1">0 / 280</div>
         </div>
-        <button className="w-1/2 bg-black text-white py-2 rounded-lg transition">
+        <button className="w-1/2 bg-black text-white py-2 rounded-lg transition font-bold">
           Send Notification
         </button>
       </div>
 
       {/* Sent Notifications Section */}
       <div className="flex-1 bg-white shadow-lg p-6 rounded-lg">
-        <h2 className="text-xl font-semibold mb-4">Sent Notifications</h2>
+        <h2 className="text-xl font-semibold mb-4">Notifications Sent</h2>
         <p className="text-gray-600 mb-4">
           List of recently sent notifications
         </p>

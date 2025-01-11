@@ -12,25 +12,14 @@ const MyRequestContainer = () => (
       <UserNav />
     </aside>
     <main className="w-[84%] p-4 mt-20">
-      {/* Page Heading */}
-      <header className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">
-          My Waste Pickup Requests
-        </h1>
-        <p className="text-gray-600">
-          View, schedule, and manage your waste pickup requests conveniently.
-        </p>
-      </header>
       <RequestHeader />
     </main>
   </div>
 );
 
-// This modal is used to open and close the form when the Schedule Pickup button is clicked
 const Modal = (props) => {
   // eslint-disable-next-line react/prop-types
   const { children, onClose } = props;
-
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) onClose();
   };
@@ -56,19 +45,33 @@ const RequestHeader = () => {
 
   return (
     <>
-      <button
-        className="px-4 py-2 bg-black text-white rounded"
-        onClick={() => setDisplayForm(true)}
-      >
-        Schedule Pickup
-      </button>
-      {displayForm && (
-        <Modal onClose={() => setDisplayForm(false)}>
-          <WastePickupForm />
-        </Modal>
-      )}
+      <div className="flex flex-row justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800">
+            My Waste Pickup Requests
+          </h1>
+          <p className="text-gray-600">
+            View, schedule, and manage your waste pickup requests conveniently.
+          </p>
+        </div>
+        <div className="mt-2">
+          <button
+            className="bg-black text-white py-2 px-4 rounded-lg text-sm font-medium "
+            onClick={() => setDisplayForm(true)}
+          >
+            Schedule Pickup
+          </button>
+
+          {displayForm && (
+            <Modal onClose={() => setDisplayForm(false)}>
+              <WastePickupForm />
+            </Modal>
+          )}
+        </div>
+      </div>
+
       {/* Table Section */}
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-10">
         <table className="w-full text-sm text-left text-gray-500">
           <thead className="bg-gray-50 text-gray-700 uppercase text-xs">
             <tr>
@@ -109,8 +112,9 @@ const RequestTableFetch = () => (
 );
 
 // A single row in the requests table
-const RequestRow = ({ requestObj }) => {
-  const { name, address, wasteType, time, status } = requestObj;
+const RequestRow = (props) => {
+  // eslint-disable-next-line react/prop-types
+  const { name, address, wasteType, time, status } = props.requestObj;
   const [showExtraInfo, setShowExtraInfo] = useState(false);
 
   return (

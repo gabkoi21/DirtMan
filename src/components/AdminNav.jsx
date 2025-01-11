@@ -1,6 +1,12 @@
 import { NavLink } from "react-router-dom";
 import Icon from "@mdi/react";
-import { mdiViewDashboard, mdiBell, mdiFileDocument } from "@mdi/js";
+import {
+  mdiViewDashboard,
+  mdiBell,
+  mdiFileDocument,
+  mdiExitToApp,
+  mdiCog,
+} from "@mdi/js";
 
 const AdminNav = () => {
   return (
@@ -29,7 +35,7 @@ const AdminNav = () => {
               </li>
 
               {/* All Requests */}
-              <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0">
+              <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0  ">
                 <NavLink
                   className={({ isActive }) =>
                     `flex items-center p-0 ${
@@ -55,6 +61,19 @@ const AdminNav = () => {
                 >
                   <Icon path={mdiBell} size={1} className="mr-2" />
                   Send Notification
+                </NavLink>
+              </li>
+
+              <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0">
+                <NavLink
+                  className={({ isActive }) =>
+                    `flex items-center p-0 ${
+                      isActive ? "text-green-950" : "text-black"
+                    } lg:px-2`
+                  }
+                >
+                  <Icon path={mdiExitToApp} size={1} className="mr-2" />
+                  LogOut
                 </NavLink>
               </li>
             </ul>
