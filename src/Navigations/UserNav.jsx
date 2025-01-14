@@ -4,22 +4,19 @@ import {
   mdiBell,
   mdiExitToApp,
   mdiFaceManProfile,
-  mdiClockOutline,
   mdiAccountCircle,
-  mdiFileDocument,
-  mdiEyeOutline,
   mdiCalendarClock,
-  mdiTruck,
 } from "@mdi/js";
 
 const UserNav = () => {
   return (
     <header>
-      <nav className="fixed top-0 left-0 h-full w-[16%] bg-white shadow-lg overflow-y-auto ">
-        <div className="flex items-center space-x-4 px-3">
+      <nav className="fixed top-0 left-0 h-full w-[16%] md:bg-white md:shadow-lg overflow-y-auto ">
+        <div className="hidden lg:flex items-center space-x-4 px-3">
           <div className="lg:mt-3 text-gray-700">
             <Icon path={mdiAccountCircle} size={2} className="w-1/2 h-1/2" />
           </div>
+
           <div className="lg:mt-2">
             <a
               className="text-xl font-bold text-black hover:text-blue-600"

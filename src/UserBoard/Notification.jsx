@@ -1,5 +1,5 @@
 import React from "react";
-import UserNav from "../components/UserNav";
+import UserNav from "../Navigations/UserNav";
 import Icon from "@mdi/react";
 import { mdiDelete } from "@mdi/js";
 import { NotificationAlert } from "../components/NotifcationAlert";
@@ -20,7 +20,7 @@ const NotificationContainer = () => {
 
 const NotificationTable = () => {
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div className="relative overflow-x-auto md:shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-gray-700 capitalize bg-gray-50">
           <tr>

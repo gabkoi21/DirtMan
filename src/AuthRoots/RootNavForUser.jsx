@@ -1,9 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-
 import Requests from "../UserBoard/MyRequest";
 import Notification from "../UserBoard/Notification";
 import Profile from "../UserBoard/Profile";
-import UserNav from "../components/UserNav";
+import UserNav from "../Navigations/UserNav";
 
 const RootNavForUser = () => {
   return (

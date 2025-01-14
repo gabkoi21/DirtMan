@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Icon from "@mdi/react";
 import { mdiDotsVertical } from "@mdi/js";
 import { requests } from "../data/RequestData";
-import UserNav from "../components/UserNav";
+import UserNav from "../Navigations/UserNav";
 import WastePickupForm from "../components/PickupForm";
+import BottomNav from "../Navigations/UserNav";
 
 // This is the root container that holds all the other components
 const MyRequestContainer = () => (
@@ -14,6 +15,8 @@ const MyRequestContainer = () => (
     <main className="w-[84%] p-4 mt-20">
       <RequestHeader />
     </main>
+
+    <BottomNav />
   </div>
 );
 
@@ -56,7 +59,7 @@ const RequestHeader = () => {
         </div>
         <div className="mt-2">
           <button
-            className="bg-black text-white py-2 px-4 rounded-lg text-sm font-medium "
+            className=" text-white py-2 px-4 rounded-lg text-sm font-medium  bg-green-950"
             onClick={() => setDisplayForm(true)}
           >
             Schedule Pickup
@@ -71,7 +74,7 @@ const RequestHeader = () => {
       </div>
 
       {/* Table Section */}
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-10">
+      <div className="relative overflow-x-auto sm:rounded-lg mt-10">
         <table className="w-full text-sm text-left text-gray-500">
           <thead className="bg-gray-50 text-gray-700 uppercase text-xs">
             <tr>
@@ -85,7 +88,7 @@ const RequestHeader = () => {
                 Waste Type
               </th>
               <th scope="col" className="px-6 py-3">
-                Time
+                Date/Time
               </th>
               <th scope="col" className="px-6 py-3">
                 Status
@@ -114,7 +117,7 @@ const RequestTableFetch = () => (
 // A single row in the requests table
 const RequestRow = (props) => {
   // eslint-disable-next-line react/prop-types
-  const { name, address, wasteType, time, status } = props.requestObj;
+  const { name, address, wasteType, time, status, date } = props.requestObj;
   const [showExtraInfo, setShowExtraInfo] = useState(false);
 
   return (
@@ -122,7 +125,9 @@ const RequestRow = (props) => {
       <th className="px-6 py-4">{name}</th>
       <td className="px-6 py-4">{address}</td>
       <td className="px-6 py-4">{wasteType}</td>
-      <td className="px-6 py-4">{time}</td>
+      <td className="px-6 py-4">
+        {date} <br /> {time}
+      </td>
       <td className="px-6 py-4">{status}</td>
       <td className="relative px-6">
         <button

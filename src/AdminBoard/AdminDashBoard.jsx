@@ -1,4 +1,4 @@
-import AdminNav from "../components/AdminNav";
+import AdminNav from "../Navigations/AdminNav";
 const Contact = () => {
   return (
     <div className="flex ">

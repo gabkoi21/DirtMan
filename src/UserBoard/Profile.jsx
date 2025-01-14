@@ -1,4 +1,4 @@
-import UserNav from "../components/UserNav";
+import UserNav from "../Navigations/UserNav";
 import { userProfile } from "../data/userProfileData";
 
 const ProfileContainer = () => {

@@ -1,4 +1,4 @@
-import UserNav from "../components/UserNav";
+import UserNav from "../Navigations/UserNav";
 import Icon from "@mdi/react";
 import { mdiFileDocument, mdiDotsHorizontal, mdiDelete } from "@mdi/js";
 import { Allrequests } from "../data/RequestData";

@@ -1,4 +1,4 @@
-import UserNav from "../components/UserNav";
+import UserNav from "../Navigations/UserNav";
 const Contact = () => {
   return (
     <div className="flex ">

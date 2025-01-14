@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import PageNav from "./components/PageNav";
+import PageNav from "./Navigations/PageNav";
 import RootNavForAdmin from "./AuthRoots/RootNavForAdmin";
 import RootNavForUser from "./AuthRoots/RootNavForUser";
 
