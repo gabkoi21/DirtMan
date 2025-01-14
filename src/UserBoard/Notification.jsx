@@ -1,4 +1,3 @@
-import React from "react";
 import UserNav from "../Navigations/UserNav";
 import Icon from "@mdi/react";
 import { mdiDelete } from "@mdi/js";
