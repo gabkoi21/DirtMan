@@ -87,3 +87,12 @@ const AdminNav = () => {
 };
 
 export default AdminNav;
+
+
+<thead className="text-gray-700 capitalize bg-gray-50">
+          {/* <tr> */}
+          {/* <th colSpan="5" className="p-3"> */}
+
+          {/* </th> */}
+          {/* </tr> */}
+        </thead>
