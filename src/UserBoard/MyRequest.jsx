@@ -12,7 +12,7 @@ const MyRequestContainer = () => (
     <aside className="md:w-[16%] h-screen">
       <UserNav />
     </aside>
-    <main className="md:w-[84%] w-full p-2 mt-20">
+    <main className="md:w-[84%] w-full mx-1 px-3 mt-20">
       <RequestHeader />
     </main>
 
@@ -50,13 +50,13 @@ const RequestHeader = () => {
     <>
       <div className="md:flex flex-row justify-between gap-5">
         <div>
-          <h1 className="text-base md:text-3xl font-bold text-gray-800">
+          <h1 className="text-base md:text-3xl md:mx-3 lg:mx-2 2xl:mx-3 font-bold text-gray-800">
             My Waste Pickup Requests
           </h1>
         </div>
         <div className="mt-2">
           <button
-            className=" text-white py-1 px-1 rounded-lg font-medium bg-green-950 whitespace-normal w-32 "
+            className=" text-white py-1 px-1 rounded-sm font-medium bg-green-950 whitespace-normal w-32 "
             onClick={() => setDisplayForm(true)}
           >
             Schedule Pickup
@@ -71,20 +71,20 @@ const RequestHeader = () => {
       </div>
 
       {/* Table Section */}
-      <div className="relative overflow-x-auto sm:rounded-lg mt-10">
+      <div className="relative overflow-x-auto sm:rounded-lg mt-10 max-w-18xl">
         <table className="w-full text-sm text-left text-gray-500">
           <thead className="bg-gray-50 text-gray-700 uppercase text-xs">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Name
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-20 py-3  ">
                 Address
               </th>
-              <th scope="col" className="px-6 py-3  whitespace-nowrap">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap">
                 Waste Type
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="py-3 px-10">
                 Date/Time
               </th>
               <th scope="col" className="px-6 py-3 ">
@@ -119,7 +119,7 @@ const RequestRow = (props) => {
 
   return (
     <tr className="odd:bg-white even:bg-gray-50">
-      <th className="md:px-6 md:py-3 ">{name}</th>
+      <th className="md:px-6 md:py-3 md:whitespace-nowrap">{name}</th>
       <td className="md:px-6 md:py-3 px-5 whitespace-nowrap">{address}</td>
       <td className="md:px-6 md:py-3 px-10">{wasteType}</td>
       <td className="md:px-6 md:py-3 px-5 whitespace-nowrap">
