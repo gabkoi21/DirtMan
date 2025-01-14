@@ -35,6 +35,24 @@ export const requests = [
     status: "In Progress",
     iconClass: "text-red-700",
   },
+  {
+    name: "Jane Smith ",
+    address: "101 Maple Dr, City, Country",
+    wasteType: "Paper",
+    time: "02:00 PM",
+    date: "01-12-2025",
+    status: "In Progress",
+    iconClass: "text-red-700",
+  },
+  {
+    name: "Jane Smith ",
+    address: "101 Maple Dr, City, Country",
+    wasteType: "Paper",
+    time: "02:00 PM",
+    date: "01-12-2025",
+    status: "In Progress",
+    iconClass: "text-red-700",
+  },
 ];
 
 export const Allrequests = [

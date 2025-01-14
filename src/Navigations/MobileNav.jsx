@@ -40,11 +40,7 @@ const MobileNav = (props) => {
                 to="/user/requests"
                 onClick={handleLinkClick}
               >
-                <Icon
-                  path={mdiCalendarClock}
-                  size={1}
-                  className="mr-2 hidden"
-                />
+                <Icon path={mdiCalendarClock} size={1} className="mr-2" />
                 PickUp
               </NavLink>
             </li>
@@ -58,7 +54,7 @@ const MobileNav = (props) => {
                 to="/user/notification"
                 onClick={handleLinkClick}
               >
-                <Icon path={mdiBell} size={1} className="mr-2 hidden" />
+                <Icon path={mdiBell} size={1} className="mr-2 " />
                 Notification
               </NavLink>
             </li>
@@ -72,17 +68,13 @@ const MobileNav = (props) => {
                 to="/user/profile"
                 onClick={handleLinkClick}
               >
-                <Icon
-                  path={mdiFaceManProfile}
-                  size={1}
-                  className="mr-2 hidden"
-                />
+                <Icon path={mdiFaceManProfile} size={1} className="mr-2 " />
                 My Profile
               </NavLink>
             </li>
             <li>
               <button className="flex items-center text-black">
-                <Icon path={mdiExitToApp} size={1} className="mr-2  hidden" />
+                <Icon path={mdiExitToApp} size={1} className="mr-2  " />
                 Logout
               </button>
             </li>

@@ -6,21 +6,6 @@ const WastePickupForm = () => {
     <form className="max-w-sm mx-auto p-8 bg-white shadow-lg rounded-lg">
       <h2 className="text-3xl font-semibold mb-6">Request Pickup</h2>
 
-      {/* <div className="mb-4">
-        <label
-          htmlFor="name"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Full Name
-        </label>
-        <input
-          type="text"
-          id="name"
-          className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-none sm:text-sm"
-          required
-        />
-      </div> */}
-
       <div className="mb-4">
         <label
           htmlFor="location"
@@ -57,7 +42,7 @@ const WastePickupForm = () => {
         </select>
       </div>
 
-      <div className="mb-4 flex flex-row gap-5">
+      <div className="mb-4 md:flex flex-row gap-5">
         <div className="w-full">
           <label className="block text-sm font-medium text-gray-700">
             Date

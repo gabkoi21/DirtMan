@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Icon from "@mdi/react";
 import { mdiDotsVertical } from "@mdi/js";
 import { requests } from "../data/RequestData";
@@ -12,7 +12,7 @@ const MyRequestContainer = () => (
     <aside className="md:w-[16%] h-screen">
       <UserNav />
     </aside>
-    <main className="w-[84%] p-4 mt-20">
+    <main className="md:w-[84%] w-full p-2 mt-20">
       <RequestHeader />
     </main>
 
@@ -48,18 +48,15 @@ const RequestHeader = () => {
 
   return (
     <>
-      <div className="flex flex-row justify-between">
+      <div className="md:flex flex-row justify-between gap-5">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">
+          <h1 className="text-base md:text-3xl font-bold text-gray-800">
             My Waste Pickup Requests
           </h1>
-          <p className="text-gray-600">
-            View, schedule, and manage your waste pickup requests conveniently.
-          </p>
         </div>
         <div className="mt-2">
           <button
-            className=" text-white py-2 px-4 rounded-lg text-sm font-medium  bg-green-950"
+            className=" text-white py-1 px-1 rounded-lg font-medium bg-green-950 whitespace-normal w-32 "
             onClick={() => setDisplayForm(true)}
           >
             Schedule Pickup
@@ -84,13 +81,13 @@ const RequestHeader = () => {
               <th scope="col" className="px-6 py-3">
                 Address
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3  whitespace-nowrap">
                 Waste Type
               </th>
               <th scope="col" className="px-6 py-3">
                 Date/Time
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3 ">
                 Status
               </th>
               <th scope="col" className="px-6 py-3">
@@ -122,13 +119,13 @@ const RequestRow = (props) => {
 
   return (
     <tr className="odd:bg-white even:bg-gray-50">
-      <th className="px-6 py-4">{name}</th>
-      <td className="px-6 py-4">{address}</td>
-      <td className="px-6 py-4">{wasteType}</td>
-      <td className="px-6 py-4">
-        {date} <br /> {time}
+      <th className="md:px-6 md:py-3 ">{name}</th>
+      <td className="md:px-6 md:py-3 px-5 whitespace-nowrap">{address}</td>
+      <td className="md:px-6 md:py-3 px-10">{wasteType}</td>
+      <td className="md:px-6 md:py-3 px-5 whitespace-nowrap">
+        {date} {time}
       </td>
-      <td className="px-6 py-4">{status}</td>
+      <td className="px-6 py-4 whitespace-nowrap">{status}</td>
       <td className="relative px-6">
         <button
           className="mt-3"
