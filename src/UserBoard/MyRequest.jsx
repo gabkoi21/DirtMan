@@ -127,21 +127,18 @@ const RequestRow = (props) => {
       </td>
       <td className="px-6 py-4 whitespace-nowrap">{status}</td>
       <td className="relative px-6">
-        <button
-          className="mt-3"
-          onClick={() => setShowExtraInfo(!showExtraInfo)}
-        >
+        <button onClick={() => setShowExtraInfo(!showExtraInfo)}>
           <Icon path={mdiDotsVertical} size={1} className="text-gray-500" />
         </button>
-
         {showExtraInfo && (
-          <div className="absolute right-2 mt-2 w-40 bg-white border rounded shadow-lg">
-            <p className="hover:bg-gray-100 px-4 py-2 cursor-pointer">
-              Delete Pickup
-            </p>
-            <p className="hover:bg-gray-100 px-4 py-2 cursor-pointer">
-              Edit Pickup
-            </p>
+          <div className="absolute right-28 -mt-10 w-40 bg-white border rounded shadow-lg">
+            <button className="hover:bg-gray-100 px-4 py-1 cursor-pointer text-black">
+              Delete
+            </button>
+            <br />
+            <button className="hover:bg-gray-100 px-4 py-1 cursor-pointer text-black">
+              Edit
+            </button>
           </div>
         )}
       </td>

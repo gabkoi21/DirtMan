@@ -61,24 +61,33 @@ const UserManagement = () => {
 };
 
 // Fetch and render the list of requests
+
 const UserTableFetch = () => {
-  const userData = User;
+  const [activeRow, setActiveRow] = useState(null);
+
+  const handleShowUser = (index) => {
+    setActiveRow((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  const userData = User; // Assuming User is your data array
   return (
     <tbody>
-      {userData.map((user) => (
-        <RequestRow key={user.id} requestObj={user} />
+      {userData.map((user, index) => (
+        <RequestRow
+          key={user.id}
+          requestObj={user}
+          isActive={activeRow === index}
+          onShowUser={() => handleShowUser(index)}
+        />
       ))}
     </tbody>
   );
 };
 
-const RequestRow = (props) => {
-  const { name, email, role, status } = props.requestObj;
-  const [UserShow, setUserShown] = useState(false);
-
-  function handleShowUser() {
-    setUserShown((prev) => !prev);
-  }
+// eslint-disable-next-line react/prop-types
+const RequestRow = ({ isActive, onShowUser, requestObj }) => {
+  // eslint-disable-next-line react/prop-types
+  const { name, email, role, status } = requestObj;
 
   return (
     <>
@@ -88,15 +97,22 @@ const RequestRow = (props) => {
         <td className="md:px-6 md:py-3 px-10">{role}</td>
         <td className="md:px-6 md:py-3 px-5 whitespace-nowrap">{status}</td>
         <td className="relative">
-          <button onClick={handleShowUser} className="rounded-full ">
-            <Icon path={mdiDotsVertical} size={1} />
+          <button onClick={onShowUser} className="rounded-full ">
+            <Icon path={mdiDotsVertical} size={1} className="ml-7" />
           </button>
-          {UserShow && (
-            <div className="absolute rounded shadow-md p-2 z-10">
-              <button className="block px-8  py-1  text-black">
+
+          {isActive && (
+            <div className="absolute right-28 -mt-10 w-40 bg-white border rounded shadow-lg">
+              <button className="hover:bg-gray-100 px-4 py-1 cursor-pointer text-black">
                 Deactivate
+              </button>{" "}
+              <br />
+              <button className="hover:bg-gray-100 px-4 py-1 cursor-pointer text-black">
+                Activate
               </button>
-              <button className="block px-8 py-1 text-black ">Activate</button>
+              <button className="hover:bg-gray-100 px-4 py-1 cursor-pointer text-black">
+                Delete
+              </button>
             </div>
           )}
         </td>
