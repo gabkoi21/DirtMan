@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import PageNav from "./Navigations/PageSideNav";
+import PageNav from "./Navigations/PageNav";
 import RootNavForAdmin from "./AuthRoots/RootNavForAdmin";
 import RootNavForUser from "./AuthRoots/RootNavForUser";
 
 const App = () => {
-  const isAdmin = false; // Replace with dynamic logic for determining admin or user.
+  const isAdmin = true; // Replace with dynamic logic for determining admin or user.
 
   return (
     <BrowserRouter>

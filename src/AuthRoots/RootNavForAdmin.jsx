@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import AdminDashBoard from "../AdminBoard/AdminDashBoard";
-import Request from "../AdminBoard/AllRequest";
+import Request from "../AdminBoard/UserManagement";
 import SendNotification from "../AdminBoard/SendNotification";
 // import AdminNav from "./AdminNav";
 import AdminNav from "../Navigations/AdminNav";

@@ -3,9 +3,8 @@ import Icon from "@mdi/react";
 import {
   mdiViewDashboard,
   mdiBell,
-  mdiFileDocument,
+  mdiAccountCircle,
   mdiExitToApp,
-  mdiCog,
 } from "@mdi/js";
 
 const AdminNav = () => {
@@ -44,8 +43,12 @@ const AdminNav = () => {
                   }
                   to="/admin/allrequests"
                 >
-                  <Icon path={mdiFileDocument} size={1} className="mr-2" />
-                  All Requests
+                  <Icon
+                    path={mdiAccountCircle}
+                    size={1}
+                    className="whitespace-nowrap mr-1"
+                  />
+                  User Management
                 </NavLink>
               </li>
 

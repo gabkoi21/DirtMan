@@ -12,7 +12,7 @@ import {
 const UserNav = () => {
   return (
     <header>
-      <nav className="fixed top-0 left-0 h-full md:w-[18%] xl:w-[14%] md:bg-white md:shadow-lg overflow-y-auto ">
+      <nav className="fixed top-0 left-0 h-full md:w-[18%] xl:w-[16%] md:bg-white md:shadow-lg overflow-y-auto ">
         <div className="hidden md:flex lg:flex items-center md:space-x-1 px-3">
           <div className="lg:mt-3 text-gray-700">
             <Icon path={mdiAccountCircle} size={2} className="w-1/2 h-1/2" />
