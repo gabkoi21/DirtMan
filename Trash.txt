@@ -96,3 +96,40 @@ export default AdminNav;
           {/* </th> */}
           {/* </tr> */}
         </thead>
+
+
+
+
+
+
+// This is the button for the the action 
+<td className="relative">
+            <button onClick={onShowUser} className="rounded-full ">
+              <Icon path={mdiDotsVertical} size={1} className="ml-7" />
+            </button>
+
+            {isActive && (
+              <div className="absolute right-28 -mt-10 w-40 bg-white border rounded shadow-lg">
+                <button className="hover:bg-gray-100 px-4 py-1 cursor-pointer text-black">
+                  Deactivate
+                </button>{" "}
+                <br />
+                <button className="hover:bg-gray-100 px-4 py-1 cursor-pointer text-black">
+                  Activate
+                </button>
+                <button className="hover:bg-gray-100 px-4 py-1 cursor-pointer text-black">
+                  Delete
+                </button>
+              </div>
+            )}
+</td>
+
+
+
+//This is for horendzontal line 
+ {/* Horizontal Line (hr) */}
+      {/* <tr>
+        <td colSpan="5">
+          <hr className="border-t-2 border-gray-300 " />
+        </td>
+      </tr> */}

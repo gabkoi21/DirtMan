@@ -11,7 +11,7 @@ const UserManagementContainer = () => (
     <aside className="md:w-[16%] h-screen">
       <UserNav />
     </aside>
-    <main className="md:w-[84%] w-full mx-1 px-3 mt-20">
+    <main className="md:w-[84%] w-full mx-3 px-3 mt-20">
       <UserManagement />
     </main>
 
@@ -23,32 +23,33 @@ const UserManagementContainer = () => (
 const UserManagement = () => {
   return (
     <>
-      <div className="md:flex flex-row justify-between gap-5">
-        <div>
-          <h1 className="text-base md:text-3xl md:mx-3 lg:mx-2 2xl:mx-3 font-bold text-gray-800">
-            User Management
-          </h1>
-        </div>
+      <div className="md:flex flex-row justify-between items-center mb-6">
+        <h1 className="text-xl md:text-3xl font-bold text-gray-800">
+          User Management
+        </h1>
       </div>
 
+      {/* Horizontal line for separation */}
+      <hr className="border-t-2 my-4 border-r-emerald-700" />
+
       {/* Table Section */}
-      <div className="relative overflow-x-auto sm:rounded-lg mt-10 max-w-18xl">
-        <table className="w-full text-sm text-left text-gray-500">
+      <div className="relative mt-6 overflow-x-auto sm:rounded-lg">
+        <table className="w-full text-sm text-left text-gray-500 rounded-lg">
           <thead className="bg-gray-50 text-gray-700 uppercase text-xs">
             <tr>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-4">
                 Name
               </th>
-              <th scope="col" className="px-20 py-3  ">
+              <th scope="col" className="px-6 py-4">
                 Email
               </th>
-              <th scope="col" className="px-6 py-3 whitespace-nowrap">
+              <th scope="col" className="px-6 py-4">
                 Role
               </th>
-              <th scope="col" className="py-3 px-10">
+              <th scope="col" className="px-6 py-4">
                 Status
               </th>
-              <th scope="col" className="px-6 py-3 ">
+              <th scope="col" className="px-6 py-4">
                 Actions
               </th>
             </tr>
@@ -60,8 +61,7 @@ const UserManagement = () => {
   );
 };
 
-// Fetch and render the list of requests
-
+// Fetch and render the list of users
 const UserTableFetch = () => {
   const [activeRow, setActiveRow] = useState(null);
 
@@ -84,40 +84,46 @@ const UserTableFetch = () => {
   );
 };
 
-// eslint-disable-next-line react/prop-types
+// RequestRow Component for displaying individual rows
 const RequestRow = ({ isActive, onShowUser, requestObj }) => {
-  // eslint-disable-next-line react/prop-types
   const { name, email, role, status } = requestObj;
 
   return (
-    <>
-      <tr className="odd:bg-white even:bg-gray-50">
-        <th className="md:px-6 md:py-3 md:whitespace-nowrap">{name}</th>
-        <td className="md:px-6 md:py-3 px-5 whitespace-nowrap">{email}</td>
-        <td className="md:px-6 md:py-3 px-10">{role}</td>
-        <td className="md:px-6 md:py-3 px-5 whitespace-nowrap">{status}</td>
-        <td className="relative">
-          <button onClick={onShowUser} className="rounded-full ">
-            <Icon path={mdiDotsVertical} size={1} className="ml-7" />
-          </button>
+    <tr className="odd:bg-white even:bg-gray-50">
+      <td className="px-6 py-4 whitespace-nowrap text-gray-900">{name}</td>
+      <td className="px-6 py-4 whitespace-nowrap text-gray-900">{email}</td>
+      <td className="px-6 py-4 whitespace-nowrap text-gray-900">{role}</td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <span
+          className={`px-3 py-1 rounded-full text-xs font-semibold ${
+            status === "Active"
+              ? "bg-green-100 text-green-800"
+              : "bg-yellow-100 text-yellow-800"
+          }`}
+        >
+          {status}
+        </span>
+      </td>
+      <td className="relative">
+        <button onClick={onShowUser} className="rounded-full">
+          <Icon path={mdiDotsVertical} size={1} className="ml-7" />
+        </button>
 
-          {isActive && (
-            <div className="absolute right-28 -mt-10 w-40 bg-white border rounded shadow-lg">
-              <button className="hover:bg-gray-100 px-4 py-1 cursor-pointer text-black">
-                Deactivate
-              </button>{" "}
-              <br />
-              <button className="hover:bg-gray-100 px-4 py-1 cursor-pointer text-black">
-                Activate
-              </button>
-              <button className="hover:bg-gray-100 px-4 py-1 cursor-pointer text-black">
-                Delete
-              </button>
-            </div>
-          )}
-        </td>
-      </tr>
-    </>
+        {isActive && (
+          <div className="absolute md:right-32 -mt-10 w-40 bg-white border border-gray-50 rounded shadow-lg">
+            <button className="hover:bg-gray-100 px-3 py-1 cursor-pointer text-black capitalize">
+              Deactivate
+            </button>
+            <button className="hover:bg-gray-100 px-3 py-1 cursor-pointer text-black capitalize">
+              Activate
+            </button>
+            <button className="hover:bg-gray-100 px-3 py-1 cursor-pointer text-black capitalize">
+              Delete
+            </button>
+          </div>
+        )}
+      </td>
+    </tr>
   );
 };
 

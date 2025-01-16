@@ -5,12 +5,13 @@ import {
   mdiBell,
   mdiAccountCircle,
   mdiExitToApp,
+  mdiBriefcaseCheck,
 } from "@mdi/js";
 
 const AdminNav = () => {
   return (
     <header>
-      <nav className="fixed top-0 left-0 h-full w-[16%] bg-white shadow-lg overflow-y-auto z-10 hidden lg:block">
+      <nav className="fixed top-0 left-0 h-full w-[17%] bg-white shadow-lg overflow-y-auto z-10 hidden lg:block">
         <div className="lg:mt-2 ml-7 mb-10 mt-5">
           <p className="text-4xl font-bold">Admin</p>
         </div>
@@ -34,7 +35,7 @@ const AdminNav = () => {
               </li>
 
               {/* All Requests */}
-              <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0  ">
+              <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0">
                 <NavLink
                   className={({ isActive }) =>
                     `flex items-center p-0 ${
@@ -49,6 +50,36 @@ const AdminNav = () => {
                     className="whitespace-nowrap mr-1"
                   />
                   User Management
+                </NavLink>
+              </li>
+
+              {/* Service Request */}
+              <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0">
+                <NavLink
+                  className={({ isActive }) =>
+                    `flex items-center p-0 ${
+                      isActive ? "text-green-950" : "text-black"
+                    } lg:px-2`
+                  }
+                  to="/admin/servicerequest"
+                >
+                  <Icon path={mdiBriefcaseCheck} size={1} className="mr-2" />
+                  Service Request
+                </NavLink>
+              </li>
+
+              {/* Task Management */}
+              <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0">
+                <NavLink
+                  className={({ isActive }) =>
+                    `flex items-center p-0 ${
+                      isActive ? "text-green-950" : "text-black"
+                    } lg:px-2`
+                  }
+                  to="/admin/taskmanagement"
+                >
+                  <Icon path={mdiBell} size={1} className="mr-2" />
+                  Task Management
                 </NavLink>
               </li>
 
@@ -67,6 +98,7 @@ const AdminNav = () => {
                 </NavLink>
               </li>
 
+              {/* LogOut */}
               <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0">
                 <NavLink
                   className={({ isActive }) =>

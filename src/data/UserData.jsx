@@ -31,12 +31,4 @@ export const User = [
     status: "Active",
     action: "Edit",
   },
-  {
-    id: 5,
-    name: "Ethan Davis",
-    email: "ethan.davis@example.com",
-    role: "Customer",
-    status: "Inactive",
-    action: "Edit",
-  },
 ];
