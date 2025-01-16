@@ -10,7 +10,7 @@ const NotificationContainer = () => {
       <aside className="md:w-[16%] h-screen">
         <UserNav />
       </aside>
-      <main className="md:w-[84%] w-full mx-1 px-3 mt-20 ">
+      <main className="md:w-[84%] w-full mx-3 px-3 mt-20">
         <NotificationTable />
       </main>
     </div>
@@ -58,6 +58,11 @@ const Notifications = () => {
     </td>
   );
 };
+
+{
+  /* Horizontal line for separation */
+}
+<hr className="border-t-2 my-4 border-r-emerald-700" />;
 
 const NotificationFetch = () => {
   const notificationData = notifations;

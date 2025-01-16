@@ -24,6 +24,7 @@ const ServiceRequest = () => {
           Service Request
         </h1>
       </div>
+
       {/* Horizontal line for separation */}
       <hr className="border-t-2 my-4 border-r-emerald-700" />
 

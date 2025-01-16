@@ -12,7 +12,7 @@ import {
 const UserNav = () => {
   return (
     <header>
-      <nav className="fixed top-0 left-0 h-full md:w-[18%] xl:w-[16%] md:bg-white md:shadow-lg overflow-y-auto ">
+      <nav className="fixed top-0 left-0 h-full md:w-[18%] lg:w-[17%] md:bg-white md:shadow-lg overflow-y-auto ">
         <div className="hidden md:flex lg:flex items-center md:space-x-1 px-3">
           <div className="lg:mt-3 text-gray-700">
             <Icon path={mdiAccountCircle} size={2} className="w-1/2 h-1/2" />
@@ -42,10 +42,10 @@ const UserNav = () => {
                     size={1}
                     className="mr-2"
                   />
-                  PickUp
+                  Schedule PickUp
                 </NavLink>
               </li>
-              <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0 xl:font-semibold">
+              <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0 ">
                 <NavLink
                   className={({ isActive }) =>
                     `flex items-center p-0 ${
@@ -58,7 +58,7 @@ const UserNav = () => {
                   Notification
                 </NavLink>
               </li>
-              <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0 xl:font-semibold">
+              <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0">
                 <NavLink
                   className={({ isActive }) =>
                     `flex items-center p-0 ${
@@ -71,7 +71,7 @@ const UserNav = () => {
                   My Profile
                 </NavLink>
               </li>
-              <li className="mb-4 ps-2 lg:mb-0 lg:pe-1 lg:ps-0  xl:font-semibold">
+              <li className="mb-4 ps-2 lg:mb-0 lg:pe-1 lg:ps-0 ">
                 <button className="flex items-center p-0 text-black lg:px-2">
                   <Icon path={mdiExitToApp} size={1} className="mr-2" />
                   Logout

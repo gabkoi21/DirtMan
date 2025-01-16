@@ -4,19 +4,16 @@ import { mdiDotsVertical } from "@mdi/js";
 import { requests } from "../data/RequestData";
 import UserNav from "../Navigations/UserNav";
 import WastePickupForm from "../components/PickupForm";
-import BottomNav from "../Navigations/UserNav";
 
 // This is the root container that holds all the other components
 const MyRequestContainer = () => (
-  <div className="flex">
+  <div className="flex justify-between gap-1">
     <aside className="md:w-[16%] h-screen">
       <UserNav />
     </aside>
-    <main className="md:w-[84%] w-full mx-1 px-3 mt-20">
+    <main className="md:w-[84%] w-full mx-3 px-3 mt-20">
       <RequestHeader />
     </main>
-
-    <BottomNav />
   </div>
 );
 
@@ -56,7 +53,7 @@ const RequestHeader = () => {
         </div>
         <div className="mt-2">
           <button
-            className=" text-white py-1 px-1 rounded-sm font-medium bg-green-950 whitespace-normal w-32 "
+            className="text-white py-1 px-1 rounded-sm font-medium bg-green-950 whitespace-normal w-32"
             onClick={() => setDisplayForm(true)}
           >
             Schedule Pickup
@@ -70,6 +67,8 @@ const RequestHeader = () => {
         </div>
       </div>
 
+      {/* Horizontal line for separation */}
+      <hr className="border-t-2 my-4 border-r-emerald-700" />
       {/* Table Section */}
       <div className="relative overflow-x-auto sm:rounded-lg mt-10 max-w-18xl">
         <table className="w-full text-sm text-left text-gray-500">
@@ -78,7 +77,7 @@ const RequestHeader = () => {
               <th scope="col" className="px-6 py-3">
                 Name
               </th>
-              <th scope="col" className="px-20 py-3  ">
+              <th scope="col" className="px-20 py-3">
                 Address
               </th>
               <th scope="col" className="px-6 py-3 whitespace-nowrap">
@@ -87,7 +86,7 @@ const RequestHeader = () => {
               <th scope="col" className="py-3 px-10">
                 Date/Time
               </th>
-              <th scope="col" className="px-6 py-3 ">
+              <th scope="col" className="px-6 py-3">
                 Status
               </th>
               <th scope="col" className="px-6 py-3">
@@ -118,14 +117,24 @@ const RequestRow = (props) => {
   const [showExtraInfo, setShowExtraInfo] = useState(false);
 
   return (
-    <tr className="odd:bg-white even:bg-gray-50">
-      <th className="md:px-6 md:py-3 md:whitespace-nowrap">{name}</th>
+    <tr className="odd:bg-white even:bg-gray-50 border-b">
+      <td className="md:px-6 md:py-3 md:whitespace-nowrap ">{name}</td>
       <td className="md:px-6 md:py-3 px-5 whitespace-nowrap">{address}</td>
       <td className="md:px-6 md:py-3 px-10">{wasteType}</td>
       <td className="md:px-6 md:py-3 px-5 whitespace-nowrap">
         {date} {time}
       </td>
-      <td className="px-6 py-4 whitespace-nowrap">{status}</td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <span
+          className={`px-3 py-1 rounded-full text-xs font-semibold ${
+            status === "Completed"
+              ? "bg-green-100 text-green-800"
+              : "bg-yellow-100 text-yellow-800"
+          }`}
+        >
+          {status}
+        </span>
+      </td>
       <td className="relative px-6">
         <button onClick={() => setShowExtraInfo(!showExtraInfo)}>
           <Icon path={mdiDotsVertical} size={1} className="text-gray-500" />
