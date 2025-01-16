@@ -1,6 +1,6 @@
 import { useState } from "react";
 import UserNav from "../Navigations/UserNav";
-import { drivers, Task } from "../data/TaskManagementData";
+import { drivers, task, customers } from "../data/TaskManagementData";
 
 import Icon from "@mdi/react";
 import { mdiDotsVertical } from "@mdi/js";
@@ -35,7 +35,13 @@ const TaskManagement = () => {
           <thead className="bg-gray-50 text-gray-700 uppercase text-xs">
             <tr>
               <th scope="col" className="px-6 py-4">
-                Address
+                Costumer
+              </th>
+              <th scope="col" className="px-6 py-4">
+                Contact number
+              </th>
+              <th scope="col" className="px-6 py-4">
+                Location
               </th>
               <th scope="col" className="px-6 py-4">
                 Waste Types
@@ -67,7 +73,7 @@ const TaskManagementFetch = () => {
     setActiveRow((prevIndex) => (prevIndex === index ? null : index));
   };
 
-  const TaskData = Task;
+  const TaskData = task;
   return (
     <>
       {TaskData.map((task, index) => (
@@ -83,12 +89,27 @@ const TaskManagementFetch = () => {
 };
 
 const TaskManagementRow = (props) => {
-  const { address, type, status } = props.tasksObj;
+  const { address, type, status, customerContact } = props.tasksObj;
   const { isActive, onShowUser } = props;
 
   return (
     <>
       <tr className="odd:bg-white even:bg-gray-50 ">
+        <td>
+          <select
+            className="border border-gray-300  px-1 py-1 text-gray-700  focus:outline-0 w-full rounded-md focus:ring-0 focus:ring-none focus:outline-none sm:text-base  "
+            value={drivers.name}
+          >
+            {customers.map((customers) => (
+              <option key={customers.id} value={customers.name}>
+                {customers.name}
+              </option>
+            ))}
+          </select>
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap text-gray-900">
+          {customerContact}
+        </td>
         <td className="px-6 py-4 whitespace-nowrap text-gray-900">{address}</td>
         <td className="px-6 py-4 whitespace-nowrap text-gray-900">{type}</td>
         <td className="px-6 py-4 whitespace-nowrap">
@@ -104,7 +125,7 @@ const TaskManagementRow = (props) => {
         </td>
         <td>
           <select
-            className="border border-gray-300  px-2 py-1 text-gray-700  focus:outline-0 w-[60%] rounded-md focus:ring-0 focus:ring-none focus:outline-none sm:text-base  "
+            className="border border-gray-300  px-1 py-1 text-gray-700  focus:outline-0 w-full rounded-md focus:ring-0 focus:ring-none focus:outline-none sm:text-base  "
             value={drivers.name}
           >
             {drivers.map((drivers) => (
@@ -117,14 +138,14 @@ const TaskManagementRow = (props) => {
 
         <td className="relative">
           <button onClick={onShowUser} className="rounded-full ">
-            <Icon path={mdiDotsVertical} size={1} className="ml-14" />
+            <Icon path={mdiDotsVertical} size={1} className="ml-10" />
           </button>
 
           {isActive && (
-            <div className="absolute  md:right-32 -mt-10 w-40 bg-white border rounded shadow-lg">
+            <div className="absolute  md:right-24 -mt-10 w-40 bg-white border rounded shadow-lg">
               <button className="hover:bg-gray-100 px-3 py-1 cursor-pointer text-black capitalize">
-                Completed
-              </button>{" "}
+                approved
+              </button>
               <br />
               <button className="hover:bg-gray-100 px-3 py-1 cursor-pointer text-black capitalize">
                 Delete

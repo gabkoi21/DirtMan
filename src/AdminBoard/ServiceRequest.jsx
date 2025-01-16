@@ -36,7 +36,7 @@ const ServiceRequest = () => {
                 Customer
               </th>
               <th scope="col" className="px-6 py-4">
-                Address
+                Location
               </th>
               <th scope="col" className="px-6 py-4">
                 Waste Types
