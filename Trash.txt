@@ -133,3 +133,41 @@ export default AdminNav;
           <hr className="border-t-2 border-gray-300 " />
         </td>
       </tr> */}
+
+
+
+file stutcture 
+
+
+src/
+├── context/
+│   ├── AuthContext.js
+│   ├── ThemeContext.js
+│   └── UserContext.js
+├── components/
+│   ├── Navbar.js
+│   ├── Footer.js
+│   └── Dashboard/
+│       ├── Dashboard.js
+│       └── Widgets/
+├── pages/
+│   ├── Home.js
+│   ├── Login.js
+│   ├── Register.js
+│   └── Profile.js
+├── hooks/
+│   ├── useAuth.js
+│   └── useTheme.js
+├── styles/
+│   ├── App.css
+│   └── variables.css
+├── App.js
+├── index.js
+└── package.json
+
+
+
+Use Case
+The children prop is commonly used when you want to create reusable wrapper components,
+ such as layout components, context providers, or higher-order components, that can 
+ encapsulate and manage behavior for their nested content.

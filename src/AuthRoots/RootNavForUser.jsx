@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Requests from "../UserBoard/MyRequest";
 import Notification from "../UserBoard/Notification";
 import Profile from "../UserBoard/Profile";
@@ -10,6 +10,8 @@ const RootNavForUser = () => {
       <UserNav />
       <div>
         <Routes>
+          {/* Redirect root path "/" to "requests" */}
+          <Route path="/" element={<Navigate to="requests" />} />
           <Route path="requests" element={<Requests />} />
           <Route path="notification" element={<Notification />} />
           <Route path="profile" element={<Profile />} />

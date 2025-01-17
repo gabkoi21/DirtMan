@@ -84,7 +84,7 @@ const AdminNav = () => {
               </li>
 
               {/* Send Notification */}
-              <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0">
+              {/* <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0">
                 <NavLink
                   className={({ isActive }) =>
                     `flex items-center p-0 ${
@@ -96,7 +96,7 @@ const AdminNav = () => {
                   <Icon path={mdiBell} size={1} className="mr-2" />
                   Send Notification
                 </NavLink>
-              </li>
+              </li> */}
 
               {/* LogOut */}
               <li className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0">
