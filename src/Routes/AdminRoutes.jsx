@@ -105,12 +105,12 @@ const AdminRoutes = () => {
     <>
       <AdminNav /> {/* Place AdminNav outside of <Routes> */}
       <Routes>
+        <Route path="/" element={<Navigate to="usermanagement" />} />
         <Route path="dashboard" element={<AdminDashBoard />} />
         <Route path="sendnotification" element={<SendNotification />} />
         <Route path="servicerequest" element={<ServiceRequest />} />
         <Route path="taskmanagement" element={<TaskManagement />} />
         <Route path="usermanagement" element={<UserManagement />} />
-        <Route path="/" element={<Navigate to="dashboard" />} />
       </Routes>
     </>
   );

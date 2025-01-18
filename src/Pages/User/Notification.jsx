@@ -1,9 +1,8 @@
-import UserNav from "../Navigations/UserNav";
 import Icon from "@mdi/react";
 import { mdiDelete } from "@mdi/js";
 import { NotificationAlert } from "../../components/NotifcationAlert";
 import { notifations } from "../../data/NotificationData";
-
+import { UserNav } from "../../Routes/UserRoutes";
 const NotificationContainer = () => {
   return (
     <div className="flex">

@@ -9,9 +9,9 @@ import {
 } from "@mdi/js";
 
 // Placeholder Components
-const Requests = () => <div>Schedule PickUp</div>;
-const Notification = () => <div>Notification</div>;
-const Profile = () => <div>My Profile</div>;
+import MyRequest from "../Pages/User/MyRequest";
+import Notifcation from "../Pages/User/Notification";
+import Profile from "../Pages/User/Profile";
 
 export const UserNav = () => {
   return (
@@ -95,8 +95,8 @@ const UserRoutes = () => {
       <div>
         <Routes>
           <Route path="/" element={<Navigate to="requests" />} />
-          <Route path="requests" element={<Requests />} />
-          <Route path="notification" element={<Notification />} />
+          <Route path="requests" element={<MyRequest />} />
+          <Route path="notification" element={<Notifcation />} />
           <Route path="profile" element={<Profile />} />
         </Routes>
       </div>

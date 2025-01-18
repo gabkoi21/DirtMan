@@ -1,5 +1,5 @@
-import UserNav from "../Navigations/UserNav";
 import { userProfile } from "../../data/userProfileData";
+import { UserNav } from "../../Routes/UserRoutes";
 
 const ProfileContainer = () => {
   return (

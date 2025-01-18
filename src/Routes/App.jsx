@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AuthRoute from "../Auth/AuthRoute";
-import UserRoutes from "../Routes/UserRoutes";
-import AdminRoutes from "../Routes/AdminRoutes";
+import UserRoutes from "../Routes/UserRoutes"; // Here we import UserRoutes
+import AdminRoutes from "../Routes/AdminRoutes"; // Import AdminRoutes
 import PageNav from "../Navigations/PageNav";
 
 const App = () => {
@@ -11,7 +11,8 @@ const App = () => {
       <Routes>
         <Route path="/auth/*" element={<AuthRoute />} />
         <Route path="/user/*" element={<UserRoutes />} />
-        <Route path="/admin/*" element={<AdminRoutes />} />
+        {/* Temporarily render UserRoutes instead of AdminRoutes */}
+        <Route path="/admin/*" element={<UserRoutes />} />
       </Routes>
     </Router>
   );
