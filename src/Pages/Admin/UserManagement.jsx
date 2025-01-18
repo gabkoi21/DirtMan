@@ -1,21 +1,18 @@
-import UserNav from "../Navigations/UserNav";
-import BottomNav from "../Navigations/UserNav";
-import { User } from "../data/UserData";
+import { User } from "../../data/UserData";
 import Icon from "@mdi/react";
 import { mdiDotsVertical } from "@mdi/js";
 import { useState } from "react";
+import { AdminNav } from "../../Routes/AdminRoutes";
 
 // This is the root container that holds all the other components
 const UserManagementContainer = () => (
   <div className="flex">
     <aside className="md:w-[16%] h-screen">
-      <UserNav />
+      <AdminNav />
     </aside>
     <main className="md:w-[84%] w-full mx-3 px-3 mt-20">
       <UserManagement />
     </main>
-
-    <BottomNav />
   </div>
 );
 

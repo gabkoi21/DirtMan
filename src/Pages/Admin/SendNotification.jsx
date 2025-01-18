@@ -1,10 +1,9 @@
-import UserNav from "../Navigations/UserNav";
-
+import { AdminNav } from "../../Routes/AdminRoutes";
 const SendNotification = () => {
   return (
     <div className="flex">
       <aside className="md:w-[16%]  h-screen ">
-        <UserNav />
+        <AdminNav />
       </aside>
       <main className="w-[84%] p-4  mt-20">
         <NotificationSender />

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Icon from "@mdi/react";
 import { mdiDotsVertical } from "@mdi/js";
-import { requests } from "../data/RequestData";
+import { requests } from "../../data/RequestData";
 import UserNav from "../Navigations/UserNav";
-import WastePickupForm from "../components/PickupForm";
+import WastePickupForm from "../../components/PickupForm";
 
 // This is the root container that holds all the other components
 const MyRequestContainer = () => (
