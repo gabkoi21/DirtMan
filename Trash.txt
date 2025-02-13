@@ -1,0 +1,323 @@
+// import { BrowserRouter, Route, Routes } from "react-router-dom";
+// import PageNav from "./components/PageNav";
+
+// // Pages
+// import Home from "./UserBoard/Home";
+// import Profile from "./UserBoard/Profile";
+// import PickupSchedule from "./UserBoard/SchedulePickup";
+// import DashBoard from "./UserBoard/DashBoard";
+// import Logout from "./UserBoard/Logout";
+// import Notification from "./UserBoard/Notification";
+// import MyRequest from "./UserBoard/MyRequest";
+
+// // Authentication pages
+// import Login from "./UserBoard/Login";
+// import Register from "./UserBoard/Profile";
+
+// const App = () => {
+//   return (
+//     <BrowserRouter>
+//       <PageNav />
+//       <Routes>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/profile" element={<Profile />} />
+//         <Route path="/schedulepickup" element={<PickupSchedule />} />
+//         <Route path="/dishboard" element={<DashBoard />} />
+//         <Route path="/login" element={<Login />} />
+//         <Route path="/register" element={<Register />} />
+//         <Route path="#" element={<Logout />} />
+//         <Route path="/notification" element={<Notification />} />
+//         <Route path="/requests" element={<MyRequest />} />
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// };
+
+// export default App;
+
+
+
+
+import { NavLink } from "react-router-dom";
+import Icon from "@mdi/react";
+import {
+  mdiViewDashboard,
+  mdiBell,
+  mdiExitToApp,
+  mdiFileDocument,
+} from "@mdi/js";
+
+const AdminNav = () => {
+  return (
+    <header>
+      <nav className="fixed top-0 left-0 h-full w-[16%] bg-white shadow-lg overflow-y-auto z-10 hidden lg:block">
+        {/* Navigation Content */}
+        <div className="lg:mt-2  ml-7 mb-10 mt-5">
+          <p className="text-4xl font-bold">Admin</p>
+        </div>
+
+        <div className="block w-full px-3">
+          <div
+            className="!visible mt-2 hidden flex-grow basis-[100%] lg:mt-0 lg:!block lg:basis-auto"
+            id="navbarSupportedContent2"
+            data-twe-collapse-item
+          >
+            <ul
+              className="list-style-none me-auto flex flex-col ps-0 lg:mt-1"
+              data-twe-navbar-nav-ref
+            >
+              {/* Dashboard */}
+              <li
+                className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0"
+                data-twe-nav-item-ref
+              >
+                <NavLink
+                  className="flex items-center p-0 text-black lg:px-2"
+                  to="admindashboard"
+                >
+                  Dashboard
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+  );
+};
+
+export default AdminNav;
+
+
+<thead className="text-gray-700 capitalize bg-gray-50">
+          {/* <tr> */}
+          {/* <th colSpan="5" className="p-3"> */}
+
+          {/* </th> */}
+          {/* </tr> */}
+        </thead>
+
+
+
+
+
+
+// This is the button for the the action 
+<td className="relative">
+            <button onClick={onShowUser} className="rounded-full ">
+              <Icon path={mdiDotsVertical} size={1} className="ml-7" />
+            </button>
+
+            {isActive && (
+              <div className="absolute right-28 -mt-10 w-40 bg-white border rounded shadow-lg">
+                <button className="hover:bg-gray-100 px-4 py-1 cursor-pointer text-black">
+                  Deactivate
+                </button>{" "}
+                <br />
+                <button className="hover:bg-gray-100 px-4 py-1 cursor-pointer text-black">
+                  Activate
+                </button>
+                <button className="hover:bg-gray-100 px-4 py-1 cursor-pointer text-black">
+                  Delete
+                </button>
+              </div>
+            )}
+</td>
+
+
+
+//This is for horendzontal line 
+ {/* Horizontal Line (hr) */}
+      {/* <tr>
+        <td colSpan="5">
+          <hr className="border-t-2 border-gray-300 " />
+        </td>
+      </tr> */}
+
+
+
+file stutcture 
+
+
+src/
+├── context/
+│   ├── AuthContext.js
+│   ├── ThemeContext.js
+│   └── UserContext.js
+├── components/
+│   ├── Navbar.js
+│   ├── Footer.js
+│   └── Dashboard/
+│       ├── Dashboard.js
+│       └── Widgets/
+├── pages/
+│   ├── Home.js
+│   ├── Login.js
+│   ├── Register.js
+│   └── Profile.js
+├── hooks/
+│   ├── useAuth.js
+│   └── useTheme.js
+├── styles/
+│   ├── App.css
+│   └── variables.css
+├── App.js
+├── index.js
+└── package.json
+
+
+
+Use Case
+The children prop is commonly used when you want to create reusable wrapper components,
+ such as layout components, context providers, or higher-order components, that can 
+ encapsulate and manage behavior for their nested content.
+
+
+
+Thiis is is the Previous App nav 
+
+
+// const App = () => {
+//   const isAdmin = true; // Replace with dynamic logic for determining admin or user.
+
+//   return (
+//     <BrowserRouter>
+//       {/* PageNav will always be displayed */}
+//       <PageNav />
+
+//       {/* Define routes */}
+//       <Routes>
+//         {/* Admin Routes */}
+//         <Route
+//           path="/admin/*"
+//           element={
+//             isAdmin ? <RootNavForAdmin /> : <Navigate to="/user" replace />
+//           }
+//         />
+
+//         {/* User Routes */}
+//         <Route
+//           path="/user/*"
+//           element={
+//             !isAdmin ? <RootNavForUser /> : <Navigate to="/admin" replace />
+//           }
+//         />
+
+//         {/* Fallback Route */}
+//         <Route
+//           path="*"
+//           element={<Navigate to={isAdmin ? "/admin" : "/user"} replace />}
+//         />
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// };
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+This is is the App for the loing 
+// import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+// import { useState } from "react";
+// import PageNav from "../Navigations/PageNav";
+// import RootNavForAdmin from "./AuthRoots/RootNavForAdmin";
+// import RootNavForUser from "./AuthRoots/RootNavForUser";
+// import Login from "../Auth/Login";
+// import Register from "../Auth/Register";
+
+// const App = () => {
+//   const [isLoggedIn, setIsLoggedIn] = useState(false);
+//   const [isAdmin, setIsAdmin] = useState(false);
+
+//   const handleLogin = (username, password) => {
+//     // Replace with your actual login logic
+//     if (username === "admin" && password === "admin") {
+//       setIsAdmin(true);
+//       setIsLoggedIn(true);
+//     } else if (username === "user" && password === "user") {
+//       setIsAdmin(false);
+//       setIsLoggedIn(true);
+//     }
+//   };
+
+//   return (
+//     <BrowserRouter>
+//       {isLoggedIn ? (
+//         <>
+//           {/* PageNav will always be displayed */}
+//           <PageNav />
+
+//           {/* Define routes */}
+//           <Routes>
+//             {/* Admin Routes */}
+//             <Route
+//               path="/admin/*"
+//               element={
+//                 isAdmin ? <RootNavForAdmin /> : <Navigate to="/user" replace />
+//               }
+//             />
+
+//             {/* User Routes */}
+//             <Route
+//               path="/user/*"
+//               element={
+//                 !isAdmin ? <RootNavForUser /> : <Navigate to="/admin" replace />
+//               }
+//             />
+
+//             {/* Fallback Route */}
+//             <Route
+//               path="*"
+//               element={<Navigate to={isAdmin ? "/admin" : "/user"} replace />}
+//             />
+//           </Routes>
+//         </>
+//       ) : (
+//         <Login onLogin={handleLogin} />
+//         // <Register onLogin={handleLogin} />
+//       )}
+//     </BrowserRouter>
+//   );
+// };
+
+// export default App;
+
+
+
+
+// This is the Login 
+
+
+function App() {
+  const isAuthicated = false;
+  return (
+    <Router>
+      <PageNav />
+      <Routes>
+        {isAuthicated ? (
+          <Route path="/admin/*" element={<AdminRoutes />} />
+        ) : (
+          <Route path="/user/*" element={<UserRoutes />} />
+        )}
+      </Routes>
+    </Router>
+  );
+}
