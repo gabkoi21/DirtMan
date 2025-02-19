@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
+  }
+
+  .nav-color {
+    @apply bg-nav; /* Ensure 'nav' is defined in tailwind.config.js */
+  }
+
+  .nav-color {
+    @apply text-nav; /* Ensure 'nav' is defined in tailwind.config.js */
+  }
+
+  .nav-link-light {
+    @apply text-white;
+  }
+
+  .work-group input[type="text"]:focus {
+    outline: none !important;
+    border-color: red;
+  }
+}
+
+.mobile-nav {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transform: translateX(100%); /* Initially hidden */
+  opacity: 0;
+}
+
+.mobile-nav.Show {
+  transform: translateX(0); /* Slide in */
+  opacity: 1;
+}
+
+.mobile-nav.hide {
+  transform: translateX(100%); /* Slide out */
+  opacity: 0;
+}
+
+.menu {
+  transition: transform 0.3s ease-in-out;
+}
+.menu.hidden {
+  transform: translateX(-100%);
+}
