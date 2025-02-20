@@ -12,7 +12,7 @@ import Login from "./components/Login";
 // These are the pages for the Admin end
 import AdminLayout from "./components/AdminLayout";
 import SendNotification from "./Pages/Admin/SendNotification";
-import ServiceRequest from "./Pages/Admin/ServiceRequest";
+import RequestManagement from "./Pages/Admin/RequestManagement";
 import TaskManagement from "./Pages/Admin/TaskManagement";
 import UserManagement from "./Pages/Admin/UserManagement";
 
@@ -21,6 +21,7 @@ import UserLayout from "./components/UserLayout";
 import MyRequest from "./Pages/User/MyRequest";
 import Notification from "./Pages/User/Notification";
 import Profile from "./Pages/User/Profile";
+import AdminProfile from "./Pages/Admin/AdminProfile";
 
 function App() {
   return (
@@ -32,9 +33,10 @@ function App() {
         <Route path="Admindashboard" element={<AdminLayout />}>
           <Route index element={<Navigate to="servicerequest" />} />
           <Route path="sendnotification" element={<SendNotification />} />
-          <Route path="servicerequest" element={<ServiceRequest />} />
+          <Route path="servicerequest" element={<RequestManagement />} />
           <Route path="taskmanagement" element={<TaskManagement />} />
           <Route path="usermanagement" element={<UserManagement />} />
+          <Route path="adminprofile" element={<AdminProfile />} />
         </Route>
 
         {/* This is the the nested routes for the  User  board */}
