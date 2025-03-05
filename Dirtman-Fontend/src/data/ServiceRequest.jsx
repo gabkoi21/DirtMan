@@ -1,4 +1,4 @@
-export const service = [
+export const requests = [
   {
     id: 1,
     customer: "John Doe",
@@ -6,7 +6,8 @@ export const service = [
     types: "Household",
     requestDate: "2025-01-15",
     status: "Cancelled",
-    driver: "John Akoi ",
+    driver: "John Akoi",
+    requestTime: "10:30 AM", // Added request time
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const service = [
     requestDate: "2025-01-10",
     status: "Completed",
     driver: "Gabriel Akoi",
+    requestTime: "02:15 PM", // Added request time
   },
   {
     id: 3,
@@ -24,7 +26,8 @@ export const service = [
     types: "Recycling",
     requestDate: "2025-01-12",
     status: "Scheduled",
-    driver: "Kwapke B . Yennego ",
+    driver: "Kwapke B. Yennego",
+    requestTime: "08:45 AM", // Added request time
   },
   {
     id: 4,
@@ -33,7 +36,8 @@ export const service = [
     types: "Industrial",
     requestDate: "2025-01-14",
     status: "Cancelled",
-    driver: "Hans Brown ",
+    driver: "Hans Brown",
+    requestTime: "04:00 PM", // Added request time
   },
 ];
 

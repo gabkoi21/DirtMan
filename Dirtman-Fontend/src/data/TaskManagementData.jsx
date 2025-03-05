@@ -34,10 +34,10 @@ export const task = [
 ];
 
 export const drivers = [
-  { id: 1, name: "Driver 1" },
-  { id: 2, name: "Driver 2" },
-  { id: 3, name: "Driver 3" },
-  { id: 4, name: "Driver 4" },
+  { id: 1, name: "James Wilson" },
+  { id: 2, name: "Sarah Thompson" },
+  { id: 3, name: "Robert Martinez" },
+  { id: 4, name: "Linda Garcia" },
 ];
 
 export const customers = [
