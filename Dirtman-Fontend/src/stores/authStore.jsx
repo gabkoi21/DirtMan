@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-// Fake Admin & User Data
+// Fake Admin, User & Driver Data
 const FAKE_Admin = {
   name: "Jack",
   email: "Admin",
@@ -14,6 +14,13 @@ const FAKE_USER = {
   email: "User",
   password: "User",
   role: "user",
+};
+
+const FAKE_DRIVER = {
+  name: "Mary",
+  email: "Driver",
+  password: "Driver",
+  role: "driver",
 };
 
 // Create Zustand Store
@@ -34,6 +41,11 @@ const useAuthStore = create(
           password === FAKE_USER.password
         ) {
           loggedInUser = FAKE_USER;
+        } else if (
+          email === FAKE_DRIVER.email &&
+          password === FAKE_DRIVER.password
+        ) {
+          loggedInUser = FAKE_DRIVER;
         }
 
         if (loggedInUser) {

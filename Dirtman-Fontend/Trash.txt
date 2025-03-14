@@ -321,3 +321,190 @@ function App() {
     </Router>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const UserManagement = () => {
+  const [showScheduleForm, setShowScheduleForm] = useState(false);
+
+  const toggleScheduleForm = () => {
+    setShowScheduleForm((prev) => !prev);
+  };
+
+  const closeModal = () => {
+    setShowScheduleForm(false);
+  };
+
+  return (
+    <>
+      <div className="md:flex flex-row justify-between items-center mb-10">
+        <div>
+          <h1 className="text-xl md:text-3xl font-bold text-gray-800">
+            Pickup Management
+          </h1>
+          <span>View, Edit, and Manage Your Schedule</span>
+        </div>
+
+        <div className="border py-2 px-6 rounded-md bg-green-950">
+          <button
+            onClick={toggleScheduleForm}
+            className="text-white capitalize font-semibold"
+          >
+            Schedule PickUp
+          </button>
+        </div>
+      </div>
+
+      <hr className="border-t-2 my-4 border-r-emerald-700" />
+
+      <div className="relative mt-6 overflow-x-auto sm:rounded-lg">
+        <table className="w-full text-sm text-left text-gray-500 rounded-lg">
+          <thead className="bg-gray-50 text-gray-700 uppercase text-xs">
+            <tr>
+              <th scope="col" className="px-6 py-4">
+                Name
+              </th>
+              <th scope="col" className="px-6 py-4">
+                Address
+              </th>
+              <th scope="col" className="px-6 py-4">
+                Date/Time
+              </th>
+              <th scope="col" className="px-6 py-4">
+                Status
+              </th>
+              <th scope="col" className="px-6 py-4">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <RequestTableFetch />
+        </table>
+
+        {showScheduleForm && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <SchedulePickupForm onClose={closeModal} />
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
+
+const SchedulePickupForm = ({ onClose }) => {
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+      <div className="flex justify-between">
+        <h2 className="text-lg font-bold mb-4">Schedule a Pickup</h2>
+        <button className="-mt-5" type="button" onClick={onClose}>
+          <Icon path={mdiClose} size={1} />
+        </button>
+      </div>
+
+      <form>
+        <div className="mb-4">
+          <label className="block text-sm font-semibold mb-1">Name</label>
+          <input type="text" className="w-full p-2 border rounded" />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-semibold mb-1">Address</label>
+          <input type="text" className="w-full p-2 border rounded" />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-semibold mb-1">
+            Date & Time
+          </label>
+          <input type="datetime-local" className="w-full p-2 border rounded" />
+        </div>
+        <div className="flex justify-between">
+          <button
+            type="submit"
+            className="bg-green-950 text-white px-4 py-2 rounded w-full"
+          >
+            Schedule
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+const RequestTableFetch = () => {
+  const [activeRow, setActiveRow] = useState(null);
+
+  const handleShowUser = (index) => {
+    setActiveRow((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  return (
+    <tbody>
+      {requests.map((request, index) => (
+        // Added a unique key here to resolve the warning
+        <RequestRow
+          key={request.id}
+          requestObj={request}
+          isActive={activeRow === index}
+          onShowUser={() => handleShowUser(index)}
+        />
+      ))}
+    </tbody>
+  );
+};
+
+const RequestRow = ({ requestObj, isActive, onShowUser }) => {
+  const { name, address, date, status } = requestObj;
+
+  return (
+    <tr className="odd:bg-white even:bg-gray-50" onClick={onShowUser}>
+      <td className="px-6 py-4 whitespace-nowrap text-gray-900">{name}</td>
+      <td className="px-6 py-4 whitespace-nowrap text-gray-900">{address}</td>
+      <td className="px-6 py-4 whitespace-nowrap text-gray-900">{date}</td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <span
+          className={`px-3 py-1 rounded-full text-xs font-semibold ${
+            status === "Active"
+              ? "bg-green-100 text-green-800"
+              : "bg-yellow-100 text-green-800"
+          }`}
+        >
+          {status}
+        </span>
+      </td>
+      <td className="relative">
+        <button onClick={onShowUser} className="rounded-full">
+          <Icon path={mdiDotsVertical} size={1} className="ml-7" />
+        </button>
+
+        {isActive && (
+          <div className="absolute md:right-28 -mt-10 w-40 bg-white border border-gray-200 rounded-lg shadow-xl overflow-hidden">
+            <button className="w-full px-4 py-2 text-yellow-600 text-start font-medium hover:bg-yellow-100 hover:text-yellow-700 transition-all duration-200 ease-in-out active:scale-95">
+              Deactivate
+            </button>
+            <button className="w-full px-4 py-2 text-green-600 font-medium text-start hover:bg-green-100 hover:text-green-700 transition-all duration-200 ease-in-out active:scale-95">
+              Activate
+            </button>
+            <button className="w-full px-4 py-2 text-red-600 font-medium text-start hover:bg-red-100 hover:text-red-700 transition-all duration-200 ease-in-out active:scale-95 border-t border-gray-200">
+              Delete
+            </button>
+          </div>
+        )}
+      </td>
+    </tr>
+  );
+};
+
+export default UserManagementContainer;

@@ -23,8 +23,10 @@ function Login() {
       if (isSuccess) {
         if (user?.role === "admin") {
           navigate("/Admindashboard", { replace: true });
-        } else {
+        } else if (user?.role === "user") {
           navigate("/Userdashboard", { replace: true });
+        } else {
+          navigate("/Driversboard", { replace: true });
         }
       } else {
         alert("Invalid email or password!");
@@ -36,8 +38,10 @@ function Login() {
     if (isAuthenticated) {
       if (user?.role === "admin") {
         navigate("/Admindashboard", { replace: true });
-      } else {
+      } else if (user?.role === "user") {
         navigate("/Userdashboard", { replace: true });
+      } else {
+        navigate("/Driversboard", { replace: true });
       }
     }
   }, [isAuthenticated, user, navigate]);

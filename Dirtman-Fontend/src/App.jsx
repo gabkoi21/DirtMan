@@ -23,6 +23,12 @@ import Notification from "./Pages/User/Notification";
 import Profile from "./Pages/User/Profile";
 import AdminProfile from "./Pages/Admin/AdminProfile";
 
+// These are the pages for the Driver
+import DriversLayout from "./components/DriverLayout";
+import Dashboard from "./Pages/Drivers/DriverDashboard";
+import Notifications from "./Pages/Drivers/Notifications";
+import AssignedPickup from "./Pages/Drivers/AssignedPickup";
+
 function App() {
   return (
     <BrowserRouter>
@@ -44,7 +50,15 @@ function App() {
           <Route index element={<Navigate to="requests" />} />
           <Route path="requests" element={<MyRequest />} />
           <Route path="notification" element={<Notification />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="userprofile" element={<Profile />} />
+        </Route>
+
+        {/* This is the the nested routes for the  Driver  board */}
+        <Route path="Driversboard" element={<DriversLayout />}>
+          <Route index element={<Navigate to="dashboard" />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="notification" element={<Notifications />} />
+          <Route path="assignedpickup" element={<AssignedPickup />} />
         </Route>
       </Routes>
     </BrowserRouter>

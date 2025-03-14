@@ -1,51 +1,46 @@
 // External Dependencies
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Icon from "@mdi/react";
-import { mdiBell, mdiAccountCircle, mdiBriefcaseCheck } from "@mdi/js";
+import { mdiBell, mdiBriefcaseCheck } from "@mdi/js";
 
 // Internal Dependencies
-import AdminHeaderNav from "../components/AdminHeaderNav";
+import PageNav from "../components/PageNav";
 
 // Navigation configuration
 const NAV_ITEMS = [
   {
-    to: "usermanagement",
-    label: "User Management",
-    icon: mdiAccountCircle,
-    ariaLabel: "User Management",
-  },
-  {
-    to: "servicerequest",
-    label: "Request Management",
+    to: "/Driversboard/dashboard",
+    label: "Dashboard",
     icon: mdiBriefcaseCheck,
-    ariaLabel: "Service Request",
+    ariaLabel: "Dashboard",
   },
-
   {
-    to: "sendnotification",
+    to: "/Driversboard/assignedpickup",
+    label: "Assigned PickUp",
+    icon: mdiBell,
+    ariaLabel: "Assigned PickUp",
+  },
+  {
+    to: "/Driversboard/notification",
     label: "Notifications",
     icon: mdiBell,
-    ariaLabel: "Send Notification",
+    ariaLabel: "Notifications",
   },
 ];
 
-export const AdminNav = () => {
+export const DriverNav = () => {
   return (
     <header>
-      <AdminHeaderNav />
-      {/* Main Navigation Sidebar */}
-      <nav className="fixed top-0 left-0 right-2 h-full w-[20%] bg-white shadow-lg overflow-y-auto z-10 ">
-        {/* Logo/Brand Section */}
+      <PageNav />
+      <nav className="fixed top-0 left-0 right-2 h-full w-[20%] bg-white shadow-lg overflow-y-auto z-10">
         <div className="lg:mt-2 ml-4 mb-10 mt-5">
-          <p className="text-2xl text-center font-bold whitespace-nowrap font-roboto">
-            People of Waste
+          <p className="text-2xl  font-bold whitespace-nowrap font-roboto">
+            John Peter Paul
           </p>
         </div>
 
-        {/* Navigation Links */}
-        <div className="block w-full px-3  ">
-          <ul className="list-style-none me-auto flex flex-col ps-0 lg:mt-1 font-roboto  whitespace-nowrap">
-            {/* Render Navigation Items */}
+        <div className="block w-full px-3">
+          <ul className="list-style-none me-auto flex flex-col ps-0 lg:mt-1 font-roboto whitespace-nowrap">
             {NAV_ITEMS.map((item) => (
               <li key={item.to} className="mb-4 ps-2 lg:mb-8 lg:pe-1 lg:ps-0">
                 <NavLink
@@ -73,3 +68,5 @@ export const AdminNav = () => {
     </header>
   );
 };
+
+export default DriverNav;

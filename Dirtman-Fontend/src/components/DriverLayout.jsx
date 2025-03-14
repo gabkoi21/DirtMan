@@ -1,11 +1,10 @@
 import { Outlet } from "react-router-dom";
-import { AdminNav } from "../routes/AdminRoutes";
+import { DriverNav } from "../routes/DriversRoutes";
 
 function AdminLayout() {
   return (
     <div>
-      <AdminNav />
-
+      <DriverNav />
       <div className="content">
         <Outlet />
       </div>

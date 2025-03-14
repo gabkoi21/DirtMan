@@ -2,7 +2,8 @@ import { useState } from "react";
 import { requests } from "../../data/ServiceRequest";
 import Icon from "@mdi/react";
 import { drivers } from "../../data/TaskManagementData";
-import { mdiMagnify, mdiDotsHorizontal, mdiDelete } from "@mdi/js";
+import { mdiMagnify, mdiDotsHorizontal, mdiDelete, mdiClose } from "@mdi/js";
+import PickupScheduler from "../../components/UserPickUpCalendar";
 
 // Main Container Component
 const ServiceRequestContainer = () => (
@@ -14,9 +15,22 @@ const ServiceRequestContainer = () => (
   </div>
 );
 
-// Main Service Request Component this is a reusable component
 const WasteRequest = () => {
   const [activeTab] = useState("all");
+  const [activeUser, setActiveUser] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Function to show calendar for a specific user
+  const showCalendar = (user) => {
+    setActiveUser(user); // Set the active user to show their calendar
+    setIsModalOpen(true); // Open the modal
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setActiveUser(null);
+  };
 
   return (
     <>
@@ -30,8 +44,26 @@ const WasteRequest = () => {
       <hr className="border-t-2 my-4 border-r-emerald-700" />
       <SearchRequestForm />
       <div className="relative mt-6">
-        <WasteRequestTable activeTab={activeTab} />
+        <WasteRequestTable activeTab={activeTab} showCalendar={showCalendar} />
       </div>
+
+      {/* Modal for displaying the calendar */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg w-11/12 md:w-1/2 relative">
+            <button
+              className="absolute top-2 right-2 p-2 text-gray-600"
+              onClick={closeModal}
+            >
+              <Icon path={mdiClose} size={1} />
+            </button>
+            <h2 className="text-2xl font-semibold mb-4">
+              {activeUser.customer}'s Calendar
+            </h2>
+            <PickupScheduler user={activeUser} />
+          </div>
+        </div>
+      )}
     </>
   );
 };
@@ -50,7 +82,7 @@ const SearchRequestForm = () => (
   </div>
 );
 
-// Status Badge Component this is a reusable component
+// eslint-disable-next-line
 const StatusBadge = ({ status }) => {
   const statusClasses = {
     Completed: "bg-black text-white",
@@ -71,8 +103,9 @@ const StatusBadge = ({ status }) => {
   );
 };
 
-// Service Request Row Component this is a reusable component
-const WasteRequestRow = ({ requestsObj }) => {
+// eslint-disable-next-line
+const WasteRequestRow = ({ requestsObj, showCalendar }) => {
+  // eslint-disable-next-line
   const { customer, location, types, requestDate, status, requestTime } =
     requestsObj;
 
@@ -113,6 +146,17 @@ const WasteRequestRow = ({ requestsObj }) => {
             />
           </button>
           <button
+            className="p-1 hover:bg-green-50 rounded-full transition-colors duration-200"
+            title="View Calendar"
+            onClick={() => showCalendar(requestsObj)} // Pass the request to showCalendar
+          >
+            <Icon
+              path={mdiMagnify}
+              size={0.7}
+              className="text-green-500 hover:text-green-600"
+            />
+          </button>
+          <button
             className="p-1 hover:bg-red-50 rounded-full transition-colors duration-200"
             title="Delete request"
           >
@@ -129,14 +173,18 @@ const WasteRequestRow = ({ requestsObj }) => {
 };
 
 // Table Component this is a reusable component
-const WasteRequestTable = () => (
+const WasteRequestTable = ({ showCalendar }) => (
   <table className="w-full text-sm text-left mb-5 text-gray-500 rounded-lg">
     <thead className="bg-gray-50 text-gray-700 uppercase text-xs">
       <TableHeader />
     </thead>
     <tbody>
       {requests.map((item) => (
-        <WasteRequestRow key={item.id} requestsObj={item} />
+        <WasteRequestRow
+          key={item.id}
+          requestsObj={item}
+          showCalendar={showCalendar}
+        />
       ))}
     </tbody>
   </table>

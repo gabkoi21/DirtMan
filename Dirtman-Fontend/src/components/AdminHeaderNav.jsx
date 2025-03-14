@@ -4,21 +4,24 @@ import MobileNav from "./MobileNav";
 import Icon from "@mdi/react";
 import { mdiMenu, mdiClose, mdiAccountCircle } from "@mdi/js";
 import { Button } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-/**
- * AdminHeaderNav Component
- * This component renders the top navigation bar for the admin dashboard.
- * It includes:
- * - Mobile menu toggle
- * - Profile icon with dropdown
- * - Responsive design for different screen sizes
- */
+import useAuthStore from "../../src/stores/authStore";
+
 const AdminHeaderNav = () => {
   // State for managing dropdowns and mobile menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [closing, setClosing] = useState(false);
   const [dropNav, setDropNav] = useState(false);
+
+  const logout = useAuthStore((state) => state.logout);
+  const navigate = useNavigate();
+
+  // Handle logout action
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   // Toggle handlers for dropdowns and mobile menu
   function toggledrowpdown() {
@@ -78,7 +81,9 @@ const AdminHeaderNav = () => {
                       </li>
 
                       <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-black">
-                        <a href="#">Logout</a>
+                        <button onClick={handleLogout}>
+                          <a href="#">Logout</a>
+                        </button>
                       </li>
                     </ul>
                   </div>
