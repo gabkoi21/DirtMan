@@ -1,87 +1,101 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
+from flask_jwt_extended import get_jwt
+from models import UserModel, RoleModel, CompanyModel
+from schemas import CompanySchema, UserSchema
+from utils.decorators import role_required
 from passlib.hash import pbkdf2_sha256
-from flask_jwt_extended import create_access_token, create_refresh_token , jwt_required, get_jwt_identity, get_jwt
 from db import db
-from schemas import CompanySchema , CompanyLoginSchema , CompanyUpdateSchema
-from models  import CompanyModel
-from blocklist import BLOCKLIST
-blp = Blueprint("Company", __name__, description="Operations on Copanies")
 
+# Initialize the Blueprint for company-related routes
+blp = Blueprint("companies", __name__, url_prefix="/companies", description="Operations on companies")
 
-@blp.route("/register_company")
-class CompanyRegister (MethodView):
+@blp.route('/create')
+class CreateCompany(MethodView):
     @blp.arguments(CompanySchema)
+    @blp.response(201, CompanySchema)
+    @role_required('super_admin')
     def post(self, company_data):
-        if CompanyModel.query.filter(CompanyModel.email == company_data["email"]).first():
-            abort(409, message="A user with that company already exists.")
-
-        company = CompanyModel (
-            name=company_data["name"],
-            email =company_data["email"],
-            phone_number=company_data["phone_number"],
-            address=company_data["address"],
-            password=pbkdf2_sha256.hash(company_data["password"]),
-            
-        
-        )
+        """
+        Create a new company and assign an admin to it.
+        Only accessible by Super Admin.
+        """
+        # Step 1: Create a new company
+        company = CompanyModel(name=company_data['name'])
         db.session.add(company)
         db.session.commit()
 
-        return {"message": "Company created successfully."}, 201
+        # Step 2: Assign an admin to the new company
+        admin_data = company_data.get('admin_user')
+        if not admin_data:
+            abort(400, message="Admin user data must be provided.")
 
+        # Step 3: Validate if the admin email already exists
+        if UserModel.query.filter_by(email=admin_data['email']).first():
+            abort(409, message="A user with this email already exists.")
 
-@blp.route("/login_company")
-class CompanyLogin(MethodView):
-    @blp.arguments(CompanyLoginSchema)
-    def post(self, company_data):
-        company = CompanyModel.query.filter(CompanyModel.email == company_data["email"]).first()
-        if not company or not pbkdf2_sha256.verify(company_data["password"], company.password):
-            abort(401, message="Invalid email or password.")
-        
-        access_token = create_access_token(identity=str(company.id))
-        refresh_token = create_refresh_token(identity=str(company.id))
-        return {"access_token": access_token, "refresh_token": refresh_token}, 200
+        # Step 4: Create the admin user
+        admin_user = UserModel(
+            email=admin_data['email'],
+            password=pbkdf2_sha256.hash(admin_data['password']),  # Hash the password
+            name=admin_data['name'],
+            company_id=company.id  # Link the admin to the newly created company
+        )
 
+        # Step 5: Fetch the admin role
+        admin_role = RoleModel.query.filter_by(role='admin').first()
+        if not admin_role:
+            abort(404, message="Admin role not found.")
 
-@blp.route("/logout_company")
-class CompanyLogout(MethodView):
-    @jwt_required()
-    def post(self):
-        jti = get_jwt_identity()
-        return {"message": "Successfully logged out."}, 200
-    
-@blp.route("/refresh")
-class TokenRefresh(MethodView):
-    @jwt_required(refresh=True)
-    def post(self):
-        jti = get_jwt()["jti"]
-        if jti in BLOCKLIST:
-            BLOCKLIST.remove(jti)
-        access_token = create_access_token(identity=get_jwt_identity(), fresh=False)
-        return {"access_token": access_token}, 200
-    
-    
-@blp.route("/company/<int:company_id>")
-class CompanyResource(MethodView):
-    @blp.response(200, CompanySchema)
-    def get(self, company_id):
-        company = CompanyModel.query.get_or_404(company_id)
-        return company
-    
-    @blp.arguments(CompanyUpdateSchema)
-    @blp.response(200, CompanySchema)
-    def put(self, company_data, company_id):
-        company = CompanyModel.query.get_or_404(company_id)
-        company.update(company_data)
+        # Step 6: Assign the admin role to the user
+        admin_user.roles.append(admin_role)
+
+        # Step 7: Save the admin user to the database
+        db.session.add(admin_user)
         db.session.commit()
-        return company
-    
-    @jwt_required()
-    def delete(self, company_id):
+
+        # Step 8: Return the created company info
+        return {"Message": "Company and it's Admin created successfully"}, 201
+
+@blp.route('/<int:company_id>/add-admin')
+class AddAdminToCompany(MethodView):
+    @blp.arguments(UserSchema)
+    @blp.response(201, UserSchema)
+    @role_required('super_admin')
+    def post(self, user_data, company_id):
+        """
+        Add an admin to an existing company.
+        Only accessible by Super Admin.
+        """
+        # Step 1: Check if the company exists
         company = CompanyModel.query.get_or_404(company_id)
-        db.session.delete(company)
+
+        # Step 2: Check if the email already exists
+        if UserModel.query.filter_by(email=user_data["email"]).first():
+            abort(409, message="A user with this email already exists.")
+
+        # Step 3: Create the admin user
+        admin_user = UserModel(
+            email=user_data["email"],
+            password=pbkdf2_sha256.hash(user_data["password"]),  # Hash the password
+            name=user_data["name"],
+            company_id=company.id  # Link the admin to the company
+        )
+
+        # Step 4: Fetch the admin role
+        admin_role = RoleModel.query.filter_by(role='admin').first()
+        if not admin_role:
+            abort(404, message="Admin role not found.")
+
+        # Step 5: Assign the admin role to the user
+        admin_user.roles.append(admin_role)
+
+        # Step 6: Save the admin user to the database
+        db.session.add(admin_user)
         db.session.commit()
-        return {"message": "Company deleted successfully."}, 200
+
+        return admin_user
     
     
+    
+    # This is to see if it works in git 

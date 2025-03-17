@@ -4,13 +4,18 @@ from flask_migrate import Migrate
 from flask_cors import CORS  
 import os
 import secrets
+from config import Config  
 import models
 from flask_jwt_extended import JWTManager 
 from blocklist import BLOCKLIST
 from db import db
-from resources.user import blp as AuthBlueprint
-from resources.request import blp as RequestBlueprint
+from resources.role import blp as RoleBlueprint
+from resources.user import blp as UserBlueprint 
 from resources.company import blp as CompanyBlueprint
+from resources.superAdmin import blp as SuperAdminBlueprint
+from resources.customer import blp  as CustomerAdminBlueprint
+
+
 
 
 def create_app(db_url=None):
@@ -34,8 +39,9 @@ def create_app(db_url=None):
     CORS(app)  # Enables CORS for all routes by default
 
     # JWT Configuration
-    app.config["JWT_SECRET_KEY"] = "jose"
+    app.config["JWT_SECRET_KEY"] = "your-secure-random-key-here"  # Change this to a strong secret key
     jwt = JWTManager(app)
+
 
     @jwt.token_in_blocklist_loader
     def check_if_token_in_blocklist(jwt_header, jwt_payload):
@@ -62,11 +68,40 @@ def create_app(db_url=None):
             401,
         )
 
+    @jwt.expired_token_loader
+    def expired_token_callback(jwt_header, jwt_payload):
+        return (
+            jsonify(
+                {"description": "The token has expired.", "error": "token_expired"}
+            ),
+            401,
+        )
+
+    @jwt.unauthorized_loader
+    def unauthorized_callback(error):
+        return (
+            jsonify(
+                {"description": "Missing or invalid token.", "error": "authorization_required"}
+            ),
+            401,
+        )
+
+    @jwt.invalid_token_loader
+    def invalid_token_callback(error):
+        return (
+            jsonify(
+                {"description": "Signature verification failed.", "error": "invalid_token"}
+            ),
+            401,
+        )
+
     with app.app_context():
         db.create_all()
 
-    api.register_blueprint(AuthBlueprint)
-    api.register_blueprint(RequestBlueprint)
+    api.register_blueprint(RoleBlueprint)
+    api.register_blueprint(UserBlueprint)
     api.register_blueprint(CompanyBlueprint)
-    
+    api.register_blueprint(SuperAdminBlueprint)
+    api.register_blueprint(CustomerAdminBlueprint)
+
     return app

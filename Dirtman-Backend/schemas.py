@@ -1,70 +1,30 @@
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields 
 
-# User Schema
+# Role Schema (for handling roles in API requests and responses)
+class RoleSchema(Schema):
+    id = fields.Int(dump_only=True)
+    role = fields.String(required=True)
+    timestamp = fields.DateTime(required=True)
+
+# User Schema (for handling user-related data)
 class UserSchema(Schema):
+    id = fields.Int(dump_only=True)
+    name = fields.Str(required=True)
     email = fields.Str(required=True)
-    password = fields.Str(required=True)
-    firstname = fields.Str(required=True)
-    lastname = fields.Str(required=True)
-    address = fields.Str(required=True)
-    company_id = fields.Int(required=True)
-    timestamp = fields.DateTime()
+    password = fields.Str(required=True, load_only=True)
+    company_id = fields.Int(required=False)
+    roles = fields.Nested(RoleSchema, many=True)  # Include the roles in the response
     
-    # Relationship with requests (Lazy evaluation to avoid reference issues)
-    requests = fields.List(fields.Nested(lambda: RequestSchema()), dump_only=True)
-    # company = fields.Nested(lambda: CompanySchema(), dump_only=True) 
-    company = fields.List(fields.Nested(lambda: CompanySchema()), dump_only=True) 
+    
+# Login Schema (for handling login requests)
+class LoginSchema(Schema):
+    email = fields.Str(required=True)
+    password = fields.Str(required=True, load_only=True)
+   
 
 
-# User Update Schema
-class UserUpdateSchema(Schema):
-    username = fields.Str()
-    firstname = fields.Str()
-    lastname = fields.Str()
-    address = fields.Str()
-
-# User Login Schema
-class UserLoginSchema(Schema):
-    email = fields.Email(required=True)  # Changed from username to email
-    password = fields.Str(required=True)
-
-# Company Schema
+# Company Schema (for handling company-related data and the admin user)
 class CompanySchema(Schema):
     id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
-    address = fields.Str(required=True)
-    email = fields.Email(required=True)
-    password = fields.Str(required=True)
-    phone_number = fields.Str(required=True)
-    timestamp = fields.DateTime()
-
-# Company Login Schema
-class CompanyLoginSchema(Schema):
-    email = fields.Email(required=True)
-    password = fields.Str(required=True)
-
-# Company Update Schema
-class CompanyUpdateSchema(Schema):
-    name = fields.Str()
-    address = fields.Str()
-    email = fields.Email()
-    password = fields.Str()
-    phone_number = fields.Str()
-    timestamp = fields.DateTime()
-
-# Request Schema
-class RequestSchema(Schema):
-    id = fields.Int(dump_only=True)
-    waste_type = fields.Str(required=True)
-    date = fields.Str(required=True)
-    time = fields.Str(required=True)
-    user_id = fields.Int(required=True)
-    timestamp = fields.DateTime()
-
-# Request Update Schema
-class RequestUpdateSchema(Schema):
-    waste_type = fields.Str()
-    date = fields.Str()
-    time = fields.Str()
-    user_id = fields.Int()
-    timestamp = fields.DateTime()
+    admin_user = fields.Nested(UserSchema, required=True)  # Admin user details
