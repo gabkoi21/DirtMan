@@ -32,9 +32,27 @@ def UserRegister(MethodView):
             
             return {"Message": "User created successfully"},201
         
+
+@blp.route('/login')
+class Login(MethodView):
+    @blp.arguments(UserSchema)
+    @blp.response(200, UserSchema)
+    def post(self, user_data):
+        user = UserModel.query.filter_by(email=user_data.email["email"]).first()
+        
+        if not user or not pbkdf2_sha256.verify(user_data["password"], user.password):
+            abort(401, message="Invalid email or password.")
+            
+            
+        access_token = create_access_token(identity=user.id, expires_delta=timedelta(days=30))
+        return {"access_token": access_token}, 200
+    
+    
+        abort(401, message="Invalid credential.")  
         
         
-@blp.route("/user/<int:user_id>")
+        
+@blp.route("/<int:user_id>")
 class user(MethodView):
     @blp.response(200, UserSchema)
     def get(self, user_id):
@@ -49,19 +67,7 @@ class user(MethodView):
 
 
 
-@blp.route('/login')
-class Login(MethodView):
-    @blp.arguments(UserSchema)
-    @blp.response(200, UserSchema)
-    def post(self, user_data):
-        user = UserModel.query.filter_by(email=user_data.email["email"]).first()
-        if not user or not pbkdf2_sha256.verify(user_data["password"], user.password):
-            abort(401, message="Invalid email or password.")
-        access_token = create_access_token(identity=user.id, expires_delta=timedelta(days=30))
-        return {"access_token": access_token}, 200
-    
-    
-        abort(401, message="Invalid credential.")    
+  
 
 
 

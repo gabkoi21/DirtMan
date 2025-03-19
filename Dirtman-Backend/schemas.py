@@ -1,30 +1,59 @@
-from marshmallow import Schema, fields 
+from marshmallow import Schema, fields
 
-# Role Schema (for handling roles in API requests and responses)
+
+# ==============================
+# Role Schema
+# ==============================
 class RoleSchema(Schema):
     id = fields.Int(dump_only=True)
-    role = fields.String(required=True)
+    role = fields.Str(required=True)
     timestamp = fields.DateTime(required=True)
 
-# User Schema (for handling user-related data)
+
+# ==============================
+# User Schema (Base for All Users)
+# ==============================
 class UserSchema(Schema):
+    """Schema for handling user-related data."""
     id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
     email = fields.Str(required=True)
     password = fields.Str(required=True, load_only=True)
+    phone_number = fields.Str(required=True)
+    user_type = fields.Str(required=True)  # Can be "user", "admin", or "driver"
     company_id = fields.Int(required=False)
-    roles = fields.Nested(RoleSchema, many=True)  # Include the roles in the response
-    
-    
-# Login Schema (for handling login requests)
+    license_number = fields.Str(required=False)  # ✅ Add this field for drivers
+    roles = fields.Nested("RoleSchema", many=True, dump_only=True)
+
+
+# ==============================
+# Extended Schema for Drivers
+# ==============================
+class DriverSchema(UserSchema):
+    """Schema for handling driver-related data (inherits from UserSchema)."""
+    license_number = fields.Str(required=True)
+
+
+# ==============================
+# Login Schema (For All Users)
+# ==============================
 class LoginSchema(Schema):
+    """Schema for user login requests."""
     email = fields.Str(required=True)
     password = fields.Str(required=True, load_only=True)
-   
+    
+
+class DriverLoginSchema(Schema):
+    """Schema for user login requests."""
+    email = fields.Str(required=True)
+    password = fields.Str(required=True, load_only=True)
 
 
-# Company Schema (for handling company-related data and the admin user)
+# ==============================
+# Company Schema
+# ==============================
 class CompanySchema(Schema):
+    """Schema for handling company-related data, including the admin user."""
     id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
     admin_user = fields.Nested(UserSchema, required=True)  # Admin user details
