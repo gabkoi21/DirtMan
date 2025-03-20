@@ -29,8 +29,8 @@ class SuperAdminRegister(MethodView):
             password=pbkdf2_sha256.hash(user_data["password"]),
             name=user_data["name"],
             phone_number=user_data["phone_number"],
-            user_type="super_admin",  # Explicitly set user type
-            roles=[super_admin_role],  # Assign Super Admin role
+            user_type="super_admin",  
+            roles=[super_admin_role], 
         )
 
         db.session.add(user)
@@ -49,11 +49,11 @@ class SuperAdminLogin(MethodView):
         if not user or not pbkdf2_sha256.verify(user_data["password"], user.password):
             abort(401, message="Invalid credentials")
 
-        # Ensure user is a Super Admin
+       
         if user.user_type != "super_admin":
             abort(403, message="Access denied, Only Super Admins can log in here.")
 
-        # Assign roles to the token claims
+
         additional_claims = {
             "roles": [role.role for role in user.roles]
         }
@@ -68,12 +68,12 @@ class SuperAdminLogin(MethodView):
 class AssignAdmin(MethodView):
     @blp.arguments(UserSchema)
     @blp.response(200, UserSchema)
-    @role_required("super_admin")  # Only Super Admins can assign admins
+    @role_required("super_admin")  
     def post(self, user_data, company_id):
         """Assign an admin to a company (Super Admin only)"""
         company = CompanyModel.query.get_or_404(company_id)
 
-        # Ensure "admin" role exists
+       
         admin_role = RoleModel.query.filter_by(role="admin").first()
         if not admin_role:
             abort(404, message="Admin role not found.")
@@ -84,8 +84,8 @@ class AssignAdmin(MethodView):
             password=pbkdf2_sha256.hash(user_data["password"]),
             name=user_data["name"],
             phone_number=user_data["phone_number"],
-            user_type="admin",  # Set user type to admin
-            roles=[admin_role],  # Assign Admin role
+            user_type="admin",  
+            roles=[admin_role],  
             company_id=company.id,
         )
 
@@ -93,3 +93,5 @@ class AssignAdmin(MethodView):
         db.session.commit()
 
         return user
+
+

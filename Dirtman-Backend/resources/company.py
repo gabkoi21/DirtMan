@@ -1,6 +1,6 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from flask_jwt_extended import  create_access_token, create_refresh_token
+from flask_jwt_extended import create_access_token, create_refresh_token
 from models import UserModel, RoleModel, CompanyModel
 from passlib.hash import pbkdf2_sha256
 from schemas import CompanySchema, UserSchema, LoginSchema
@@ -10,36 +10,8 @@ from db import db
 # Initialize the Blueprint for company-related routes
 blp = Blueprint("companies", __name__, url_prefix="/companies", description="Operations on companies")
 
-def create_company(company_data):
-    """Helper function to create a new company."""
-    company = CompanyModel(name=company_data['name'])
-    db.session.add(company)
-    db.session.commit()
-    return company
 
-def create_admin_user(admin_data, company_id):
-    """Helper function to create an admin user."""
-    if UserModel.query.filter_by(email=admin_data['email']).first():
-        abort(409, message="A user with this email already exists.")
-
-    admin_user = UserModel(
-        email=admin_data['email'],
-        password=pbkdf2_sha256.hash(admin_data['password']),  # Hash the password
-        name=admin_data['name'],
-        phone_number=admin_data["phone_number"],
-        user_type="admin",
-        company_id=company_id  # Link the admin to the newly created company
-    )
-
-    admin_role = RoleModel.query.filter_by(role='admin').first()
-    if not admin_role:
-        abort(404, message="Admin role not found.")
-
-    admin_user.roles.append(admin_role)
-    db.session.add(admin_user)
-    db.session.commit()
-    return admin_user
-
+# This is to register and create it admin along the user and the 
 @blp.route('/create')
 class CreateCompany(MethodView):
     @blp.arguments(CompanySchema)
@@ -49,7 +21,38 @@ class CreateCompany(MethodView):
         """
         Create a new company and assign an admin to it.
         Only accessible by Super Admin.
+        
         """
+        def create_company(company_data):
+            """Helper function to create a new company."""
+            company = CompanyModel(name=company_data['name'])
+            db.session.add(company)
+            db.session.commit()
+            return company
+
+        def create_admin_user(admin_data, company_id):
+            """Helper function to create an admin user."""
+            if UserModel.query.filter_by(email=admin_data['email']).first():
+                abort(409, message="A user with this email already exists.")
+
+            admin_user = UserModel(
+                email=admin_data['email'],
+                password=pbkdf2_sha256.hash(admin_data['password']), 
+                name=admin_data['name'],
+                phone_number=admin_data["phone_number"],
+                user_type="admin",
+                company_id=company_id  
+            )
+
+            admin_role = RoleModel.query.filter_by(role='admin').first()
+            if not admin_role:
+                abort(404, message="Admin role not found.")
+
+            admin_user.roles.append(admin_role)
+            db.session.add(admin_user)
+            db.session.commit()
+            return admin_user
+
         company = create_company(company_data)
         admin_data = company_data.get('admin_user')
         if not admin_data:
@@ -57,10 +60,10 @@ class CreateCompany(MethodView):
 
         create_admin_user(admin_data, company.id)
         return {"Message": "Company and its Admin created successfully"}, 201
-    
 
-@blp.route('/admin_login/') 
-class AdminList(MethodView):
+# This is for the Admin for the company to login
+@blp.route('/admin_login/')
+class AdminLogin(MethodView):
     @blp.arguments(LoginSchema)
     def post(self, admin_data):
         """Authenticate an admin user and return JWT tokens."""
@@ -79,20 +82,9 @@ class AdminList(MethodView):
         refresh_token = create_refresh_token(identity=str(user.id))
         
         return {"access_token": access_token, "refresh_token": refresh_token}, 200
-    
-@blp.route('/<int:company_id>')
-class CompanyDetails(MethodView):
-    @blp.response(200, CompanySchema)
-    def delete(self, company_id):
-        """
-        Delete a company and all associated users and roles.
-        Only accessible by Super Admin.
-        """
-        company = CompanyModel.query.get_or_404(company_id)
-        db.session.delete(company)
-        db.session.commit()
-        return {"Message": "Company and its associated users and roles deleted successfully."}
-    
+
+
+# This is  to add Admin to it existing company
 @blp.route('/<int:company_id>/add-admin')
 class AddAdminToCompany(MethodView):
     @blp.arguments(UserSchema)
@@ -103,6 +95,77 @@ class AddAdminToCompany(MethodView):
         Add an admin to an existing company.
         Only accessible by Super Admin.
         """
+        def create_admin_user(admin_data, company_id):
+            """Helper function to create an admin user."""
+            if UserModel.query.filter_by(email=admin_data['email']).first():
+                abort(409, message="A user with this email already exists.")
+
+            admin_user = UserModel(
+                email=admin_data['email'],
+                password=pbkdf2_sha256.hash(admin_data['password']), 
+                name=admin_data['name'],
+                phone_number=admin_data["phone_number"],
+                user_type="admin",
+                company_id=company_id  
+            )
+
+            admin_role = RoleModel.query.filter_by(role='admin').first()
+            if not admin_role:
+                abort(404, message="Admin role not found.")
+
+            admin_user.roles.append(admin_role)
+            db.session.add(admin_user)
+            db.session.commit()
+            return admin_user
+
         company = CompanyModel.query.get_or_404(company_id)
         admin_user = create_admin_user(user_data, company.id)
         return admin_user
+    
+
+
+# This is to delete the company and it exsiting iformation
+@blp.route('/<int:company_id>')
+class CompanyDetails(MethodView):
+    @blp.response(200, CompanySchema)
+    @role_required('super_admin')
+    def delete(self, company_id):
+        """
+        Delete a company and all associated users and roles.
+        Only accessible by Super Admin.
+        """
+        company = CompanyModel.query.get_or_404(company_id)
+        
+        # Manually delete all users associated with the company
+        users = UserModel.query.filter_by(company_id=company_id).all()
+        for user in users:
+            # Delete roles associated with the user
+            user.roles = []
+            db.session.delete(user)
+        
+        # Delete the company
+        db.session.delete(company)
+        db.session.commit()
+        
+        return {"Message": "Company and all associated users and roles deleted successfully."}
+
+
+# This is to delete an admin user by their ID
+@blp.route('/admin/<int:user_id>')
+class AdminDetails(MethodView):
+    @blp.response(200, UserSchema)
+    @role_required('super_admin')
+    def delete(self, user_id):
+        """
+        Delete an admin user by their ID.
+        Only accessible by Super Admin.
+        """
+        admin_user = UserModel.query.get_or_404(user_id)
+        
+        # Ensure the user is an admin
+        if admin_user.user_type != "admin":
+            abort(403, message="Access denied, only Admins can be deleted here.")
+        
+        db.session.delete(admin_user)
+        db.session.commit()
+        return {"Message": f"Admin user with ID {user_id} deleted successfully."}

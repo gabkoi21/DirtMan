@@ -13,7 +13,6 @@ from resources.role import blp as RoleBlueprint
 from resources.user import blp as UserBlueprint 
 from resources.company import blp as CompanyBlueprint
 from resources.superAdmin import blp as SuperAdminBlueprint
-from resources.customer import blp  as CustomerAdminBlueprint
 from resources.driver import blp as DriverBlueprint
 
 
@@ -107,7 +106,6 @@ def create_app(db_url=None):
     api.register_blueprint(UserBlueprint)
     api.register_blueprint(CompanyBlueprint)
     api.register_blueprint(SuperAdminBlueprint)
-    api.register_blueprint(CustomerAdminBlueprint)
     api.register_blueprint(DriverBlueprint)
 
 

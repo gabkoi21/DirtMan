@@ -3,7 +3,7 @@ from flask_smorest import Blueprint, abort
 from models import UserModel, RoleModel, CompanyModel 
 from schemas import UserSchema
 from passlib.hash import pbkdf2_sha256 
-from flask_jwt_extended import get_jwt  , create_access_token
+from flask_jwt_extended import create_access_token
 from utils.decorators import role_required
 from datetime import timedelta
 from db import db
@@ -67,7 +67,6 @@ class user(MethodView):
 
 
 
-  
 
 
 

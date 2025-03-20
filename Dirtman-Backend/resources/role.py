@@ -17,10 +17,9 @@ class RoleList(MethodView):
     
     @blp.arguments(RoleSchema)
     @blp.response(201, RoleSchema)
-    # @role_required('super_admin')  # Temporarily comment this out
+    @role_required('super_admin') 
     def post(self, role_data):
         """Create a new role."""
-        # role = RoleModel(**role_data)
         role = RoleModel(role=role_data["role"])
         db.session.add(role)
         db.session.commit()

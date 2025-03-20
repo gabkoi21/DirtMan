@@ -38,14 +38,14 @@ class DriverRegister(MethodView):
             company_id=driver_data["company_id"],
             license_number=driver_data["license_number"],
             phone_number=driver_data["phone_number"],
-            user_type="driver",  # ✅ Set user type as "driver"
+            user_type="driver",  
         )
 
         driver.roles.append(driver_role)
         db.session.add(driver)
         db.session.commit()
 
-        return driver, 201  # Return the created driver
+        return driver, 201 
 
 
 @blp.route('/login')
@@ -54,17 +54,15 @@ class DriverLogin(MethodView):
     def post(self, driver_data):
         driver = UserModel.query.filter_by(email=driver_data["email"], user_type="driver").first()
 
-        # Validate email and password
         if not driver or not pbkdf2_sha256.verify(driver_data["password"], driver.password):
             abort(401, message="Invalid email or password.")
-
-        # Ensure the driver has the "driver" role
+       
         if "driver" not in [role.role for role in driver.roles]:
             abort(403, message="You are not authorized to log in as a driver.")
 
-        # Assign roles to the token claims
+       
         additional_claims = {
-            "roles": [role.role for role in driver.roles]  # Ensure role claims exist
+            "roles": [role.role for role in driver.roles]  
         }
 
         # Generate access and refresh tokens
@@ -73,3 +71,19 @@ class DriverLogin(MethodView):
 
         return {"access_token": access_token, "refresh_token": refresh_token}, 200
 
+
+@blp.route("/delete/<string:driver_id>")
+class DriverDelete(MethodView):
+    @blp.response(200, description="Driver deleted successfully.")
+    # @role_required('admin')  # Only Admins can delete drivers
+    def delete(self, driver_id):
+        driver = UserModel.query.get_or_404(driver_id)
+        
+        # Ensure the user is a driver
+        if "driver" not in [role.role for role in driver.roles]:
+            abort(403, message="This user is not a driver.")
+
+        db.session.delete(driver)
+        db.session.commit()
+
+        return {"message": "Driver deleted successfully."}, 200
