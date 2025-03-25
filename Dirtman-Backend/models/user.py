@@ -19,3 +19,6 @@ class UserModel(db.Model):
 
     # Many-to-Many Relationship with roles
     roles = db.relationship("RoleModel", secondary=user_roles, back_populates="users")
+
+
+

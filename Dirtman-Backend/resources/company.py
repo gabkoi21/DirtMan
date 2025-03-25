@@ -1,9 +1,10 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from flask_jwt_extended import create_access_token, create_refresh_token
+# from flask_jwt_extended import create_access_token, create_refresh_token
 from models import UserModel, RoleModel, CompanyModel
 from passlib.hash import pbkdf2_sha256
-from schemas import CompanySchema, UserSchema, LoginSchema
+from schemas import CompanySchema, UserSchema 
+# LoginSchema
 from utils.decorators import role_required
 from db import db
 
@@ -60,28 +61,6 @@ class CreateCompany(MethodView):
 
         create_admin_user(admin_data, company.id)
         return {"Message": "Company and its Admin created successfully"}, 201
-
-# This is for the Admin for the company to login
-@blp.route('/admin_login/')
-class AdminLogin(MethodView):
-    @blp.arguments(LoginSchema)
-    def post(self, admin_data):
-        """Authenticate an admin user and return JWT tokens."""
-        user = UserModel.query.filter_by(email=admin_data["email"]).first()
-        if not user or not pbkdf2_sha256.verify(admin_data["password"], user.password):
-            abort(401, message="Invalid email or password.")
-        
-        if user.user_type != "admin":
-            abort(403, message="Access denied, only Admins can log in here.")
-        
-        additional_claims = {
-            "roles": [role.role for role in user.roles]
-        }
-        
-        access_token = create_access_token(identity=str(user.id), additional_claims=additional_claims)
-        refresh_token = create_refresh_token(identity=str(user.id))
-        
-        return {"access_token": access_token, "refresh_token": refresh_token}, 200
 
 
 # This is  to add Admin to it existing company

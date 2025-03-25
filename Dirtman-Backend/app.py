@@ -10,14 +10,8 @@ from flask_jwt_extended import JWTManager
 from blocklist import BLOCKLIST
 from db import db
 from resources.role import blp as RoleBlueprint
-from resources.user import blp as UserBlueprint 
 from resources.company import blp as CompanyBlueprint
-from resources.superAdmin import blp as SuperAdminBlueprint
-from resources.driver import blp as DriverBlueprint
-
-
-
-
+from resources.Auth import blp as AuthBlueprint
 
 def create_app(db_url=None):
     app = Flask(__name__)
@@ -103,10 +97,9 @@ def create_app(db_url=None):
         db.create_all()
 
     api.register_blueprint(RoleBlueprint)
-    api.register_blueprint(UserBlueprint)
     api.register_blueprint(CompanyBlueprint)
-    api.register_blueprint(SuperAdminBlueprint)
-    api.register_blueprint(DriverBlueprint)
+    api.register_blueprint(AuthBlueprint)
+   
 
 
 

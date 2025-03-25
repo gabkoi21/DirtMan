@@ -14,16 +14,13 @@ class RoleSchema(Schema):
 # User Schema (Base for All Users)
 # ==============================
 class UserSchema(Schema):
-    """Schema for handling user-related data."""
-    id = fields.Int(dump_only=True)
-    name = fields.Str(required=True)
-    email = fields.Str(required=True)
-    password = fields.Str(required=True, load_only=True)
-    phone_number = fields.Str(required=True)
-    user_type = fields.Str(required=True)  # Can be "user", "admin", or "driver"
-    company_id = fields.Int(required=False)
-    license_number = fields.Str(required=False)  # ✅ Add this field for drivers
-    roles = fields.Nested("RoleSchema", many=True, dump_only=True)
+    name = fields.String(required=True)
+    email = fields.String(required=True)
+    password = fields.String(required=True, load_only=True)
+    phone_number = fields.String(required=True)
+    user_type = fields.String(required=True)  # Added to determine user role
+    company_id = fields.Integer(allow_none=True)
+    license_number = fields.String(allow_none=True)  # Optional for drivers
 
 
 # ==============================
@@ -32,6 +29,15 @@ class UserSchema(Schema):
 class DriverSchema(UserSchema):
     """Schema for handling driver-related data (inherits from UserSchema)."""
     license_number = fields.Str(required=True)
+    
+    
+class Customers (UserSchema):
+    """Schema for handling customer-related data (inherits from UserSchema)."""
+    # address = fields.Str(required=True)
+    # customer_number = fields.Str(required=True)
+    # timestamp = fields.DateTime(required=True)
+    # customer_rating = fields.Float(required=True)
+    # timestamp = fields.DateTime(required=True)
 
 
 # ==============================
