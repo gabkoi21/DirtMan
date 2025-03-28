@@ -1,4 +1,4 @@
-
-from models.role  import RoleModel
-from models.user import UserModel
-from models.company import CompanyModel
+from .user import UserModel
+from .role import RoleModel
+from .company import CompanyModel
+from .schedule import ScheduleModel

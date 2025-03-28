@@ -1,10 +1,8 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-# from flask_jwt_extended import create_access_token, create_refresh_token
 from models import UserModel, RoleModel, CompanyModel
 from passlib.hash import pbkdf2_sha256
 from schemas import CompanySchema, UserSchema 
-# LoginSchema
 from utils.decorators import role_required
 from db import db
 
@@ -118,7 +116,6 @@ class CompanyDetails(MethodView):
         # Manually delete all users associated with the company
         users = UserModel.query.filter_by(company_id=company_id).all()
         for user in users:
-            # Delete roles associated with the user
             user.roles = []
             db.session.delete(user)
         
@@ -127,24 +124,3 @@ class CompanyDetails(MethodView):
         db.session.commit()
         
         return {"Message": "Company and all associated users and roles deleted successfully."}
-
-
-# This is to delete an admin user by their ID
-@blp.route('/admin/<int:user_id>')
-class AdminDetails(MethodView):
-    @blp.response(200, UserSchema)
-    @role_required('super_admin')
-    def delete(self, user_id):
-        """
-        Delete an admin user by their ID.
-        Only accessible by Super Admin.
-        """
-        admin_user = UserModel.query.get_or_404(user_id)
-        
-        # Ensure the user is an admin
-        if admin_user.user_type != "admin":
-            abort(403, message="Access denied, only Admins can be deleted here.")
-        
-        db.session.delete(admin_user)
-        db.session.commit()
-        return {"Message": f"Admin user with ID {user_id} deleted successfully."}

@@ -5,13 +5,14 @@ from flask_cors import CORS
 import os
 import secrets
 from config import Config  
-import models
+import models  # Ensure this import is correct
 from flask_jwt_extended import JWTManager 
 from blocklist import BLOCKLIST
 from db import db
 from resources.role import blp as RoleBlueprint
 from resources.company import blp as CompanyBlueprint
 from resources.Auth import blp as AuthBlueprint
+from resources.schedule import blp as ScheduleBlueprint
 
 def create_app(db_url=None):
     app = Flask(__name__)
@@ -23,6 +24,8 @@ def create_app(db_url=None):
     app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger-ui"
     app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
     app.config["SQLALCHEMY_DATABASE_URI"] = db_url or "sqlite:///database.db"
+    app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+    "connect_args": {"timeout": 60, "check_same_thread": False}}
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["PROPAGATE_EXCEPTIONS"] = True
     
@@ -99,8 +102,11 @@ def create_app(db_url=None):
     api.register_blueprint(RoleBlueprint)
     api.register_blueprint(CompanyBlueprint)
     api.register_blueprint(AuthBlueprint)
-   
-
-
+    api.register_blueprint(ScheduleBlueprint)
+    # from resources.user import blp as UserBlueprint
+    # api.register_blueprint(UserBlueprint)
 
     return app
+
+if __name__ == "__main__":
+    app.run(debug=True)
