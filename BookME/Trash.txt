@@ -1,0 +1,409 @@
+
+
+
+from flask.views import MethodView
+from flask_smorest import Blueprint, abort
+from flask import jsonify
+from db import db
+from sqlalchemy.exc import SQLAlchemyError, IntegrityError
+from schemas import EventUpdateSchema, PlainEventSchema
+from  models import EventModel
+
+
+blp = Blueprint("events", __name__, description="Operations on events")
+
+@blp.route('/event')
+class Events(MethodView):
+
+    @blp.response(200, PlainEventSchema(many=True))
+    def get(self):
+        return EventModel.query.all()
+
+
+    @blp.arguments(PlainEventSchema)
+    @blp.response(201,PlainEventSchema)
+    def post(self, event_data):
+        
+        postEvent = EventModel(**event_data)
+
+        try:
+            db.session.add(postEvent)
+            db.session.commit()
+
+        except SQLAlchemyError: 
+            abort(500, message="An error occurred while inserting the Event.")
+
+        return postEvent
+
+
+    @blp.response(201,PlainEventSchema )
+    def delete(self):
+        
+        try: 
+            db.session.query(EventModl).delete()
+            db.session.commit()
+            return jsonify({"Message": f"Event with the ID of {event_id} has been deleted successfully"})
+                  
+        except SQLAlchemyError: 
+            abort(500, message="An error occurred while deleting the Event.")
+
+
+    
+# THIS IS THE EVENT ID METHODVIEW 
+
+@blp.route('/event/<string:event_id>')
+class eventById(MethodView):
+
+    @blp.response(201,PlainEventSchema)
+    def get(self, event_id):
+       getEventId = EventModel.query.get_or_404(event_id)
+       
+       return getEventId
+
+    @blp.response(201, PlainEventSchema)
+    def delete(self, event_id):
+        deletEventId = EventModel.query.get_or_404(event_id)
+        
+        try:
+            db.session.delete(deletEventId)
+            db.session.commit()
+    
+        
+        except SQLAlchemyError:
+             abort(500, message="An error occurred while deleting this Event.")
+
+        return deletEventId
+
+
+    @blp.arguments(EventUpdateSchema)
+    @blp.response(200, PlainEventSchema)
+    def put(self, event_data , event_id):
+        updateEvents = EventModel.query.get(event_id)
+        
+        
+        if updateEvents:
+            updateEvents.eventName = event_data['eventName']
+            updateEvents.location  = event_data['location']
+            updateEvents.timestamp = event_data['timestamp']
+            
+            
+        else: updateEvents = ItemModel(id=event_id, **event_data)
+        
+        
+        try:
+            db.session.add(updateEvents)
+            db.session.commit()
+        
+        
+        except SQLAlchemyError:
+            abort(500, message="An event as been updated successfully")
+            
+            
+            return updateEvents
+
+
+
+
+from marshmallow import Schema , fields 
+import marshmallow as ma
+
+class PlainEventSchema(Schema):
+    eventName = ma.fields.Str()
+    location = ma.fields.Str()
+    timestamp = ma.fields.DateTime()
+
+
+class plainTicketSchema(Schema):
+    id = fields.Str(dump_only=True)
+    price = fields.Int(required=True)
+    quantity = fields.Int(required=True)
+    timestamp = ma.fields.DateTime()
+   
+
+
+class TicketSchema(plainTicketSchema):
+    event_id = fields.Int(required=True, load_only=True)
+    ticket  = fields.Nested(plainTicketSchema(), dump_only=True)
+
+
+class EventUpdateSchema(ma.Schema):
+    eventName = ma.fields.Str()
+    location = ma.fields.Str()
+    timestamp = ma.fields.DateTime()
+
+
+class TicketUpdateSchema(Schema):
+    id = fields.Str(dump_only=True)
+    price = fields.Int(required=True)
+    quantity = fields.Int(required=True)
+    timestamp = ma.fields.DateTime()
+
+
+
+
+
+// schemas 
+from marshmallow import Schema , fields
+import marshmallow as ma
+
+
+
+class PostSchema(Schema):
+    id = ma.fields.Int(dump_only=True)
+    content = ma.fields.Str(required=True)
+    timestamp = ma.fields.DateTime(required=True) 
+
+
+class UserSchema(Schema):
+    id = ma.fields.Int(dump_only=True)
+    fullname = ma.fields.Str(required=True)
+    Username = ma.fields.Str(required=True)
+    Email = ma.fields.Email(required=True)
+    Password = ma.fields.Int(required=True)
+    user_id = ma.fields.Int(required=True)
+    Bio = ma.fields.Int(requered=True)
+
+    
+    
+    
+
+
+
+{
+    "id": 1,
+    "username": "gabrielakoi",
+    "fullname": "Gabriel Akoi",
+    "requests": [
+        {
+            "id": 10,
+            "waste_type": "Plastic",
+            "date": "2025-02-15",
+            "time": "08:00:00",
+            "user_id": 1
+        },
+        {
+            "id": 11,
+            "waste_type": "Organic",
+            "date": "2025-02-16",
+            "time": "10:00:00",
+            "user_id": 1
+        }
+    ]
+}
+
+
+
+{
+    "id": 10,
+    "waste_type": "Plastic",
+    "date": "2025-02-15",
+    "time": "08:00:00",
+    "user": {
+        "id": 1,
+        "username": "gabrielakoi",
+        "fullname": "Gabriel Akoi"
+    }
+}
+
+
+
+
+
+////
+
+
+
+from flask.views import MethodView
+from flask_smorest import Blueprint, abort
+from passlib.hash import pbkdf2_sha256
+from flask_jwt_extended import create_access_token, create_refresh_token , jwt_required, get_jwt_identity, get_jwt
+from flask import request
+
+from db import db
+from schemas import UserSchema
+from schemas import UserUpdateSchema
+from schemas import UserLoginSchema
+from models import UserModel
+from blocklist import BLOCKLIST
+blp = Blueprint("Users", __name__, description="Operations on users")
+
+@blp.route("/register")
+class UserRegister(MethodView):
+    @blp.arguments(UserSchema)
+    def post(self, user_data):
+        if UserModel.query.filter(UserModel.username == user_data["username"]).first():
+            abort(409, message="A user with that username already exists.")
+
+        user = UserModel(
+            username=user_data["username"],
+            password=pbkdf2_sha256.hash(user_data["password"]),
+            fullname=user_data["fullname"],
+            role_id=user_data["role_id"],
+            address=user_data["address"],
+            
+        )
+        db.session.add(user)
+        db.session.commit()
+
+        return {"message": "User created successfully."}, 201
+    
+    @blp.arguments(UserSchema)
+    def get(self, user_data):
+        users = UserModel.query.all()
+        return UserSchema(many=True).dump(users)
+
+        
+@blp.route("/login")
+class UserLogin(MethodView):
+    @blp.arguments(UserLoginSchema)
+    def post(self, user_data):
+        user = UserModel.query.filter(UserModel.username == user_data["username"]).first()
+        if not user or not pbkdf2_sha256.verify(user_data["password"], user.password):
+            abort(401, message="Invalid credentials")
+        access_token = create_access_token(identity=str(user.id))
+        refresh_token = create_refresh_token(identity=str(user.id))
+        return {"access_token": access_token, "refresh_token": refresh_token}, 200
+    
+    
+@blp.route("/logout")
+class userLogout(MethodView):
+    @jwt_required()
+    def post(self):
+        jti = get_jwt_identity()
+        BLOCKLIST.add(jti)
+        return {"message": "Successfully logged out."}, 200
+    
+    
+@blp.route("/refresh")
+class UserRefresh(MethodView):
+    @jwt_required(refresh=True)
+    def post(self):
+        jti = get_jwt_identity()
+        access_token = create_access_token(identity=jti, fresh=False)
+        jti = get_jwt()["jti"]
+        BLOCKLIST.add(jti)
+        return {"access_token": access_token}, 200
+    
+@blp.route("/delete_all")
+class DeleteAllUsers(MethodView):
+    def delete(self):
+        users = UserModel.query.all()
+        for user in users:
+            db.session.delete(user)
+        db.session.commit()
+        return {"message": "All users deleted successfully."}, 200
+    
+    
+    
+@blp.route("/user/<int:user_id>")
+class user(MethodView):
+    @blp.response(200, UserSchema)
+    def get(self, user_id):
+        user = UserModel.query.get_or_404(user_id)
+        return user
+    
+    @blp.arguments(UserUpdateSchema)
+    @blp.response(200, UserSchema)
+    def put(self, user_data, user_id):
+        user = UserModel.query.get_or_404(user_id)
+        user.username = user_data["username"]
+        user.fullname = user_data["fullname"]
+        db.session.commit() 
+        return user
+    
+    @blp.response(204)
+    def delete(self, user_id):
+        user = UserModel.query.get_or_404(user_id)
+        db.session.delete(user)
+        db.session.commit()
+        return {"message": "User deleted successfully."}, 201
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from marshmallow import Schema, fields
+
+# User Schema
+class UserSchema(Schema):
+    email = fields.Str(required=True)
+    password = fields.Str(required=True)
+    firstname = fields.Str(required=True)
+    lastname = fields.Str(required=True)
+    address = fields.Str(required=True)
+    company_id = fields.Int(required=True)
+    timestamp = fields.DateTime()
+    
+    # Relationship with requests (Lazy evaluation to avoid reference issues)
+    requests = fields.List(fields.Nested(lambda: RequestSchema()), dump_only=True)
+    # company = fields.Nested(lambda: CompanySchema(), dump_only=True) 
+    company = fields.List(fields.Nested(lambda: CompanySchema()), dump_only=True) 
+
+
+# User Update Schema
+class UserUpdateSchema(Schema):
+    username = fields.Str()
+    firstname = fields.Str()
+    lastname = fields.Str()
+    address = fields.Str()
+
+# User Login Schema
+class UserLoginSchema(Schema):
+    email = fields.Email(required=True)  # Changed from username to email
+    password = fields.Str(required=True)
+
+# Company Schema
+class CompanySchema(Schema):
+    id = fields.Int(dump_only=True)
+    name = fields.Str(required=True)
+    address = fields.Str(required=True)
+    email = fields.Email(required=True)
+    password = fields.Str(required=True)
+    phone_number = fields.Str(required=True)
+    timestamp = fields.DateTime()
+
+# Company Login Schema
+class CompanyLoginSchema(Schema):
+    email = fields.Email(required=True)
+    password = fields.Str(required=True)
+
+# Company Update Schema
+class CompanyUpdateSchema(Schema):
+    name = fields.Str()
+    address = fields.Str()
+    email = fields.Email()
+    password = fields.Str()
+    phone_number = fields.Str()
+    timestamp = fields.DateTime()
+
+# Request Schema
+class RequestSchema(Schema):
+    id = fields.Int(dump_only=True)
+    waste_type = fields.Str(required=True)
+    date = fields.Str(required=True)
+    time = fields.Str(required=True)
+    user_id = fields.Int(required=True)
+    timestamp = fields.DateTime()
+
+# Request Update Schema
+class RequestUpdateSchema(Schema):
+    waste_type = fields.Str()
+    date = fields.Str()
+    time = fields.Str()
+    user_id = fields.Int()
+    timestamp = fields.DateTime()
