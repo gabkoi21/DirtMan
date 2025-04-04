@@ -82,6 +82,7 @@ class AppointmentSchema(Schema):
     id = fields.Int(dump_only=True)
     user_id = fields.Int(required=True)
     business_id = fields.Int(required=True)
+    service_id = fields.Int(required=True)
     date_time = fields.DateTime(required=True)
     timestamp = fields.DateTime(dump_only=True)  
     user = fields.Nested(UserSchema, dump_only=True) 
@@ -94,6 +95,7 @@ class AppointmentSchema(Schema):
 class AppointmentUpdateSchema(Schema):
     user_id = fields.Int(required=False)
     business_id = fields.Int(required=False)
+    service_id = fields.Int(required=False)
     date_time = fields.DateTime(required=False)
     timestamp = fields.DateTime(dump_only=True)
 

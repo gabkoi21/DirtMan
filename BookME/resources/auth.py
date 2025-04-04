@@ -27,13 +27,15 @@ def create_user(user_data, required_type=None):
         abort(400, message=f"Invalid user type: {user_type}")
 
     # Check if the business exists O
-    if user_data.get("role") != "super_admin":  
-        if user_data.get("business_id"):
-            business = BusinessModel.query.filter_by(id=user_data["business_id"]).first()
-            if not business:
-                abort(400, message="Business does not exist. Please choose a valid business.")
-            else:
-                abort(400, message="Business ID is required.")
+    if user_data.get("role") != "super_admin":
+        if not user_data.get("business_id"):
+            abort(400, message="Business ID is required for non-super-admin users.")
+            
+        business = BusinessModel.query.filter_by(id=user_data["business_id"]).first()
+
+        if not business:
+            abort(400, message="Business does not exist. Please choose a valid business.")
+
 
 
     # Create the user with the assigned role
@@ -43,6 +45,7 @@ def create_user(user_data, required_type=None):
         email=user_data["email"],
         phone_number=user_data["phone_number"],
         user_type=user_type,
+        address=user_data.get("address"),
         business_id=user_data.get("business_id"),
         password=pbkdf2_sha256.hash(user_data["password"]),  
         roles=[role],  

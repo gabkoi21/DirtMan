@@ -1,32 +1,36 @@
-# from functools import wraps
-# from flask import jsonify, request
-# from models import UserModel
-
-# def role_required(*roles):
-#     def decorator(f):
-#         @wraps(f)
-#         def wrapper(*args, **kwargs):
-#             user_role = request.headers.get("X-User-Role", None)
-#             if user_role not in roles:
-#                 return jsonify({"message": "Access denied"}), 403
-#             return f(*args, **kwargs)
-#         return wrapper
-#     return decorator
-
-
-# utils/decorators.py
 from functools import wraps
-from flask_jwt_extended import verify_jwt_in_request, get_jwt
+from flask_jwt_extended import get_jwt_identity, get_jwt, verify_jwt_in_request , jwt_required
 from flask_smorest import abort
+from models import AppointmentModel
 
-def role_required(role_name):
+def role_required(*roles, check_owner=False):
     def decorator(fn):
         @wraps(fn)
+        @jwt_required()  # ✅ This ensures get_jwt_identity() and get_jwt() will work
         def wrapper(*args, **kwargs):
-            verify_jwt_in_request()
-            claims = get_jwt()  # Get claims from JWT
-            if role_name not in claims.get('roles', []):  # Safe access with .get()
-                abort(403, message=f"Role '{role_name}' is required.")
+            user_id = get_jwt_identity()
+            user_roles = get_jwt().get("roles", [])
+
+            print("User ID:", user_id)
+            print("Roles:", user_roles)
+
+            # ✅ Check if user has at least one required role
+            if not any(role in user_roles for role in roles):
+                abort(403, message="You do not have the necessary permissions to access this resource.")
+
+            # ✅ Owner check
+            if check_owner:
+                appointment_id = kwargs.get('appointment_id')
+                appointment = AppointmentModel.query.get_or_404(appointment_id)
+
+                print("Appointment owner:", appointment.user_id)
+
+                is_owner = str(user_id) == str(appointment.user_id)
+                is_admin = "business_admin" in user_roles
+
+                if not is_owner and not is_admin:
+                    abort(403, message="You are not authorized to access this appointment.")
+
             return fn(*args, **kwargs)
         return wrapper
     return decorator

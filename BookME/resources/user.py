@@ -8,9 +8,6 @@ from sqlalchemy.exc import OperationalError
 from schemas import UserSchema, UserupdateSchema 
 from utils.decorators import role_required
 
-
-
-
 blp = Blueprint("User", __name__, url_prefix="/auth", description="Operations on User Model models")
 
 
@@ -52,9 +49,8 @@ class ManageUser(MethodView):
         except OperationalError:
             return {"message": "Database error occurred"}, 500
 
-    # @jwt_required()
+    @jwt_required()
     def delete(self, user_id):
-        
         """Delete a specific user (customer, business_admin)"""
         try:
             claims = get_jwt()

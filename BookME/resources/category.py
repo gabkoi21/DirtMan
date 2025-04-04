@@ -43,6 +43,8 @@ class CategoryById(MethodView):
         category = CategoryModel.query.get_or_404(category_id)
         for key, value in category_data.items():
             setattr(category, key, value)
+        
+        db.session.add(category)
         db.session.commit()
         return category
     

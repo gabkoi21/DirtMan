@@ -19,15 +19,14 @@ class RoleList(MethodView):
         return RoleModel.query.all()
 
     @blp.arguments(RoleSchema)
-    @blp.response(201, RoleSchema)
-    # @jwt_required()
-    # @role_required("super_admin")
+    @jwt_required()
+    @role_required("super_admin")
     def post(self, role_data):
         """Create a new role this is """
         role = RoleModel(**role_data)
         db.session.add(role)
         db.session.commit()
-        return role
+        return {"message": "Role created successfully."}, 201
 
 
 @blp.route("/<int:role_id>")
@@ -41,7 +40,6 @@ class Role(MethodView):
         return role
 
     @blp.arguments(RoleSchema)
-    @blp.response(200, RoleSchema)
     @jwt_required()
     @role_required("super_admin")
     def put(self, role_data, role_id):
@@ -50,13 +48,13 @@ class Role(MethodView):
         for key, value in role_data.items():
             setattr(role, key, value)
         db.session.commit()
-        return role
+        return {"message": "Role updated successfully."}, 200
 
     @jwt_required()
-    @role_required("admin")
+    @role_required("super_admin")
     def delete(self, role_id):
         """Delete a role by ID"""
         role = RoleModel.query.get_or_404(role_id)
         db.session.delete(role)
         db.session.commit()
-        return {"message": "Role deleted"}
+        return {"message": "Role deleted successfully."}, 200

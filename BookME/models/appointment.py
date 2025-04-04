@@ -15,6 +15,3 @@ class AppointmentModel(db.Model):
     user = db.relationship('UserModel', back_populates='appointments') 
     business = db.relationship('BusinessModel', back_populates='appointments')  
     service = db.relationship('ServiceModel', back_populates='appointments')
-
-
-
