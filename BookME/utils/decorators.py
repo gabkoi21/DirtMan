@@ -1,3 +1,20 @@
+# from functools import wraps
+# from flask import jsonify, request
+# from models import UserModel
+
+# def role_required(*roles):
+#     def decorator(f):
+#         @wraps(f)
+#         def wrapper(*args, **kwargs):
+#             user_role = request.headers.get("X-User-Role", None)
+#             if user_role not in roles:
+#                 return jsonify({"message": "Access denied"}), 403
+#             return f(*args, **kwargs)
+#         return wrapper
+#     return decorator
+
+
+# utils/decorators.py
 from functools import wraps
 from flask_jwt_extended import verify_jwt_in_request, get_jwt
 from flask_smorest import abort

@@ -15,3 +15,4 @@ class BusinessModel(db.Model):
     # Relationships
     appointments = db.relationship('AppointmentModel', back_populates='business')  # Matches 'business' in AppointmentModel
     users = db.relationship('UserModel', back_populates='business')  # Add this line
+    services = db.relationship('ServiceModel', back_populates='business_relationship')  # Matches 'business_relationship' in ServiceModel

@@ -63,6 +63,10 @@ class BusinessSchema(Schema):
     phone_number = fields.Str(required=False)
     email = fields.Email(required=False)
 
+# ===============================
+# BusinessSchema
+# ===============================
+
 class BusinessUpdateSchema(Schema):
     name = fields.Str(required=False)
     description = fields.Str(required=False)
@@ -70,3 +74,58 @@ class BusinessUpdateSchema(Schema):
     address = fields.Str(required=False)
     phone_number = fields.Str(required=False)
     email = fields.Email(required=False)
+
+# ===============================
+# AppointmentSchema
+# ===============================
+class AppointmentSchema(Schema):
+    id = fields.Int(dump_only=True)
+    user_id = fields.Int(required=True)
+    business_id = fields.Int(required=True)
+    date_time = fields.DateTime(required=True)
+    timestamp = fields.DateTime(dump_only=True)  
+    user = fields.Nested(UserSchema, dump_only=True) 
+    business = fields.Nested(BusinessSchema, dump_only=True)
+
+# ===============================
+# AppointmentUpdateSchema
+# ===============================
+
+class AppointmentUpdateSchema(Schema):
+    user_id = fields.Int(required=False)
+    business_id = fields.Int(required=False)
+    date_time = fields.DateTime(required=False)
+    timestamp = fields.DateTime(dump_only=True)
+
+# ===============================
+# ServiceSchema
+# ===============================
+
+class ServiceSchema(Schema):
+    id = fields.Int(dump_only=True)
+    name = fields.Str(required=True)
+    description = fields.Str(required=False)
+    price = fields.Float(required=True)
+    business_id = fields.Int(required=True)
+    category_id = fields.Int(required=True)  # Adding category_id for service
+    timestamp = fields.DateTime(dump_only=True)  
+    appointments = fields.List(fields.Nested(AppointmentSchema), dump_only=True)
+
+class ServiceUpdateSchema(Schema):
+    name = fields.Str(required=False)  # Not required for partial updates
+    description = fields.Str(required=False)
+    price = fields.Float(required=False)
+    business_id = fields.Int(required=False)  # Can be updated, but not required
+    category_id = fields.Int(required=False)  # Adding category_id for update
+    is_active = fields.Bool(required=False)  # If you allow activating/deactivat
+
+
+# ===============================
+# CategorySchema
+# ===============================
+
+class CategorySchema(Schema):
+    id = fields.Int(dump_only=True)
+    category_name = fields.Str(required=False)
+    timestamp = fields.DateTime(dump_only=True)
+    services = fields.List(fields.Nested("ServiceSchema"), dump_only=True)

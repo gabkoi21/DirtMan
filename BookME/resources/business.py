@@ -115,20 +115,12 @@ class BusinessUpdateView(MethodView):
         """Update a business. Only accessible by Super Admin."""
         business = BusinessModel.query.get_or_404(business_id)
 
-        # Model-like approach for the fields
-        business_data = {
-            "name": data.get("name"),
-            "description": data.get("description"),
-            "timestamp": data.get("timestamp"),
-            "address": data.get("address"),
-            "phone_number": data.get("phone_number"),
-            "email": data.get("email")
-        }
-
-        # Update each field from the business_data dictionary
-        for field, value in business_data.items():
-            if value:  # Only update if value is not None or empty
-                setattr(business, field, value)
+        for key, value in data.items():
+            if key == "password":
+                hashed_password = pbkdf2_sha256.hash(value)
+                setattr(business, key, hashed_password)
+            else:
+                setattr(business, key, value)
 
         db.session.add(business)  # Track changes
         db.session.commit()

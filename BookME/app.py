@@ -11,6 +11,9 @@ from db import db
 from resources.business import blp as BusinessBlueprint
 from resources.auth import blp as AuthBlueprint
 from resources.role import blp as RoleBlueprint
+from resources.user import blp as UserBlueprint
+from resources.service import blp as ServiceBlueprint
+from resources.category import blp as CategoryBlueprint
 
 
 
@@ -101,9 +104,9 @@ def create_app(db_url=None):
 
     api.register_blueprint(RoleBlueprint)
     api.register_blueprint(AuthBlueprint)
+    api.register_blueprint(UserBlueprint)
     api.register_blueprint(BusinessBlueprint)
-    
-   
-
+    api.register_blueprint(ServiceBlueprint)
+    api.register_blueprint(CategoryBlueprint)
 
     return app

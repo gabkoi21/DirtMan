@@ -9,7 +9,6 @@ from utils.decorators import role_required
 blp = Blueprint("Role", __name__, url_prefix="/roles", description="Operations on role models")
 
 
-
 @blp.route("/")
 class RoleList(MethodView):
     @blp.response(200, RoleSchema(many=True))
@@ -21,10 +20,10 @@ class RoleList(MethodView):
 
     @blp.arguments(RoleSchema)
     @blp.response(201, RoleSchema)
-    @jwt_required()
-    @role_required("admin")
+    # @jwt_required()
+    # @role_required("super_admin")
     def post(self, role_data):
-        """Create a new role"""
+        """Create a new role this is """
         role = RoleModel(**role_data)
         db.session.add(role)
         db.session.commit()
@@ -35,7 +34,7 @@ class RoleList(MethodView):
 class Role(MethodView):
     @blp.response(200, RoleSchema)
     @jwt_required()
-    @role_required("admin")
+    @role_required("super_admin")
     def get(self, role_id):
         """Get a role by ID"""
         role = RoleModel.query.get_or_404(role_id)
@@ -44,7 +43,7 @@ class Role(MethodView):
     @blp.arguments(RoleSchema)
     @blp.response(200, RoleSchema)
     @jwt_required()
-    @role_required("admin")
+    @role_required("super_admin")
     def put(self, role_data, role_id):
         """Update a role by ID"""
         role = RoleModel.query.get_or_404(role_id)
